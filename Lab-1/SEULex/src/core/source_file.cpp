@@ -78,10 +78,24 @@ void source_file::parser_rules(XMLElement *p)
             throw runtime_error("In source file: " + config->get_source_file_loaction() + "\n<action> tag can not be empty. Line: " + to_string(action_ele->GetLineNum()));
         string re(re_ele->GetText());
         string line = pre_process_re(re, e->GetLineNum());
+        if (line.empty())
+            throw runtime_error("In source file: " + config->get_source_file_loaction() + "\n<re> tag can not be empty. Line: " + to_string(action_ele->GetLineNum()));
         vector<string> lines;
         string action(action_ele->GetText());
         string_utils::split(action, lines, "\n");
+        vector<string> res;
+        for (auto v : lines)
+        {
+            string_utils::trim(v);
+            if (!v.empty())
+            {
+                res.push_back(v);
+            }
+        }
+        if (res.empty())
+            throw runtime_error("In source file: " + config->get_source_file_loaction() + "\n<action> tag can not be empty. Line: " + to_string(action_ele->GetLineNum()));
         //TODO: ADD TO RULES
+        rules.push_back(rule(line, res));
         e = e->FirstChildElement("rule");
     }
 }
@@ -133,6 +147,8 @@ void source_file::parserXML()
         parser_user_code(code);
 
     //TODO: judge whether <rules> has content
+    if (rules.empty())
+        throw runtime_error("In source file: " + config->get_source_file_loaction() + ":\n<rules> must have content. Line: " + to_string(rules_part->GetLineNum()));
 }
 
 source_file *source_file::get_instance()

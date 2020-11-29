@@ -56,6 +56,16 @@ void test_source_file()
     cout << endl;
     unordered_map<string, string> map = file->get_re_definitions();
     cout << map["D"] << endl;
+
+    vector<rule> rules = file->get_rules();
+    for (rule r : rules)
+    {
+        cout << r.get_pattern() << endl;
+        for (string a : r.get_actions())
+        {
+            cout << a << endl;
+        }
+    }
 }
 
 int main()

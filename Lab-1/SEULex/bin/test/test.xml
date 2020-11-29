@@ -6,7 +6,7 @@
     </userDefinitions>
     <reDefinitions>
         <D>
-            "if"
+            "^我"
         </D>
         <DIG>
             "static"
@@ -18,7 +18,8 @@
                 "if"
             </re>
             <action>
-                cout &lt;&lt; "llll" &lt;&lt; endl;
+                cout &lt;&lt; "我就试试" &lt;&lt; endl;
+                return 0;
             </action>
         </rule>
         <rule>

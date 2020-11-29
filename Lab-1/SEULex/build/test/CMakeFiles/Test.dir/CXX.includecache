@@ -11,6 +11,10 @@ string
 -
 
 ../include/rule.h
+string
+-
+vector
+-
 
 ../include/source_file.h
 vector
