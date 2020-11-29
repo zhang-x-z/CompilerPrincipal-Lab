@@ -1,44 +1,46 @@
 #include "config.h"
 #include <fstream>
-#include <string>
 #include <stdexcept>
 
-int Config::buffer_size = 100;
 Config *Config::config = new Config();
 
 Config::Config()
 {
-    std::ifstream in("config.properties");
+    ifstream in("config.properties");
     if (!in)
     {
-        throw std::runtime_error("Can not find configuration file config.properties.");
+        throw runtime_error("Can not find configuration file config.properties.");
     }
-    std::string line;
-    std::string delim = "=";
+    string line;
+    string delim = "=";
     while (getline(in, line))
     {
         int index = line.find('=');
         if (index == line.npos)
-            throw std::runtime_error("In config.properties: line: " + line + " Must hava '='");
-        std::string options = line.substr(0, index);
-        std::string value = line.substr(index + 1);
+            throw runtime_error("In config.properties: line: " + line + " Must hava '='");
+        string options = line.substr(0, index);
+        string value = line.substr(index + 1);
         if (value.length() == 0)
-            throw std::runtime_error("In config.properties: line: " + line + " Property must has a value!");
+            throw runtime_error("In config.properties: line: " + line + " Property must has a value!");
 
         if (options == "buffer_size")
         {
-            buffer_size = std::atoi(value.c_str());
+            buffer_size = atoi(value.c_str());
+        }
+        else if (options == "source_file_location")
+        {
+            source_file_location = value;
         }
         //TODO: maybe have more config options
         else
         {
-            throw std::runtime_error("In config.properties: Property: " + options + " is not allowed.");
+            throw runtime_error("In config.properties: Property: " + options + " is not allowed.");
         }
     }
     getline(in, line);
 }
 
-Config *Config::getInstance()
+Config *Config::get_instance()
 {
     return config;
 }
@@ -46,4 +48,14 @@ Config *Config::getInstance()
 int Config::get_buffer_size()
 {
     return this->buffer_size;
+}
+
+const string &Config::get_source_file_loaction()
+{
+    return this->source_file_location;
+}
+
+void Config::delete_instance()
+{
+    delete config;
 }
