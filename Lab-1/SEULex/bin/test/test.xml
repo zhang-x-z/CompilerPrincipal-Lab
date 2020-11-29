@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Lex>
+    <userDefinitions>
+        #include &lt;iostream&gt;
+        #define IF 1
+    </userDefinitions>
+    <reDefinitions>
+        <D>
+            "if"
+        </D>
+        <DIG>
+            "static"
+        </DIG>
+    </reDefinitions>
+    <rules>
+        <rule>
+            <re>
+                "if"
+            </re>
+            <action>
+                cout &lt;&lt; "llll" &lt;&lt; endl;
+            </action>
+        </rule>
+        <rule>
+            <re>
+                "else"
+            </re>
+            <action>
+                return;
+            </action>
+        </rule>
+    </rules>
+    <userCode>
+        void print_co()
+        {
+            cout &lt;&lt; endl;
+        }
+    </userCode>
+</Lex>
