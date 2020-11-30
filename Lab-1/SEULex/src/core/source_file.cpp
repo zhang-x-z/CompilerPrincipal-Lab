@@ -1,4 +1,5 @@
 #include "source_file.h"
+#include "re_utils.h"
 #include "string_utils.h"
 
 source_file *source_file::source = new source_file();
@@ -21,7 +22,6 @@ string source_file::pre_process_re(const string &re, int line_num)
         {
             if (has)
                 throw runtime_error("In source file: " + config->get_source_file_loaction() + ":\nCan only have one regular experssion. Line: " + to_string(line_num));
-            //TODO: normalize re
             res = line;
             has = true;
         }
@@ -56,6 +56,16 @@ void source_file::parser_re_definitions(XMLElement *p)
         string line = pre_process_re(re, c->GetLineNum());
         if (line.empty())
             throw runtime_error("In source file: " + config->get_source_file_loaction() + ":\nMust have one and only one regular experssion. Line: " + to_string(c->GetLineNum()));
+        //TODO: re standerd
+        try
+        {
+            re_utils::replace_braces(line, re_definitions);
+        }
+        catch (const runtime_error &e)
+        {
+            string error(e.what());
+            throw runtime_error(error + "\nIn source file: " + config->get_source_file_loaction() + " Line: " + to_string(c->GetLineNum()));
+        }
         pair<unordered_map<string, string>::iterator, bool> res = re_definitions.insert(make_pair(name, line));
         if (!res.second)
             throw runtime_error("When insert Regular expression: " + line + ". Something went wrong.");

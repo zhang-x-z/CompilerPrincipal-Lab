@@ -5,6 +5,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/Test.dir/__/src/core/NFA.cpp.o"
   "CMakeFiles/Test.dir/__/src/core/rule.cpp.o"
   "CMakeFiles/Test.dir/__/src/core/source_file.cpp.o"
+  "CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o"
   "CMakeFiles/Test.dir/__/src/utils/string_utils.cpp.o"
   "../../bin/test/Test.pdb"
   "../../bin/test/Test"

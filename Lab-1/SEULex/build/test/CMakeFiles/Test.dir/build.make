@@ -201,9 +201,33 @@ test/CMakeFiles/Test.dir/__/src/core/source_file.cpp.o.provides: test/CMakeFiles
 test/CMakeFiles/Test.dir/__/src/core/source_file.cpp.o.provides.build: test/CMakeFiles/Test.dir/__/src/core/source_file.cpp.o
 
 
+test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o: test/CMakeFiles/Test.dir/flags.make
+test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o: ../src/utils/re_utils.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o"
+	cd /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build/test && /usr/bin/clang++-6.0  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o -c /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/src/utils/re_utils.cpp
+
+test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.i"
+	cd /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build/test && /usr/bin/clang++-6.0 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/src/utils/re_utils.cpp > CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.i
+
+test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.s"
+	cd /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build/test && /usr/bin/clang++-6.0 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/src/utils/re_utils.cpp -o CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.s
+
+test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o.requires:
+
+.PHONY : test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o.requires
+
+test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o.provides: test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o.requires
+	$(MAKE) -f test/CMakeFiles/Test.dir/build.make test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o.provides.build
+.PHONY : test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o.provides
+
+test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o.provides.build: test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o
+
+
 test/CMakeFiles/Test.dir/__/src/utils/string_utils.cpp.o: test/CMakeFiles/Test.dir/flags.make
 test/CMakeFiles/Test.dir/__/src/utils/string_utils.cpp.o: ../src/utils/string_utils.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object test/CMakeFiles/Test.dir/__/src/utils/string_utils.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object test/CMakeFiles/Test.dir/__/src/utils/string_utils.cpp.o"
 	cd /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build/test && /usr/bin/clang++-6.0  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Test.dir/__/src/utils/string_utils.cpp.o -c /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/src/utils/string_utils.cpp
 
 test/CMakeFiles/Test.dir/__/src/utils/string_utils.cpp.i: cmake_force
@@ -233,6 +257,7 @@ Test_OBJECTS = \
 "CMakeFiles/Test.dir/__/src/core/NFA.cpp.o" \
 "CMakeFiles/Test.dir/__/src/core/rule.cpp.o" \
 "CMakeFiles/Test.dir/__/src/core/source_file.cpp.o" \
+"CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o" \
 "CMakeFiles/Test.dir/__/src/utils/string_utils.cpp.o"
 
 # External object files for target Test
@@ -244,10 +269,11 @@ Test_EXTERNAL_OBJECTS =
 ../bin/test/Test: test/CMakeFiles/Test.dir/__/src/core/NFA.cpp.o
 ../bin/test/Test: test/CMakeFiles/Test.dir/__/src/core/rule.cpp.o
 ../bin/test/Test: test/CMakeFiles/Test.dir/__/src/core/source_file.cpp.o
+../bin/test/Test: test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o
 ../bin/test/Test: test/CMakeFiles/Test.dir/__/src/utils/string_utils.cpp.o
 ../bin/test/Test: test/CMakeFiles/Test.dir/build.make
 ../bin/test/Test: test/CMakeFiles/Test.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable ../../bin/test/Test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable ../../bin/test/Test"
 	cd /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build/test && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Test.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -261,6 +287,7 @@ test/CMakeFiles/Test.dir/requires: test/CMakeFiles/Test.dir/__/src/config/config
 test/CMakeFiles/Test.dir/requires: test/CMakeFiles/Test.dir/__/src/core/NFA.cpp.o.requires
 test/CMakeFiles/Test.dir/requires: test/CMakeFiles/Test.dir/__/src/core/rule.cpp.o.requires
 test/CMakeFiles/Test.dir/requires: test/CMakeFiles/Test.dir/__/src/core/source_file.cpp.o.requires
+test/CMakeFiles/Test.dir/requires: test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o.requires
 test/CMakeFiles/Test.dir/requires: test/CMakeFiles/Test.dir/__/src/utils/string_utils.cpp.o.requires
 
 .PHONY : test/CMakeFiles/Test.dir/requires

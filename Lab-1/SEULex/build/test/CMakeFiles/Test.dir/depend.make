@@ -10,12 +10,16 @@ test/CMakeFiles/Test.dir/__/src/core/rule.cpp.o: ../include/rule.h
 test/CMakeFiles/Test.dir/__/src/core/rule.cpp.o: ../src/core/rule.cpp
 
 test/CMakeFiles/Test.dir/__/src/core/source_file.cpp.o: ../include/config.h
+test/CMakeFiles/Test.dir/__/src/core/source_file.cpp.o: ../include/re_utils.h
 test/CMakeFiles/Test.dir/__/src/core/source_file.cpp.o: ../include/rule.h
 test/CMakeFiles/Test.dir/__/src/core/source_file.cpp.o: ../include/source_file.h
 test/CMakeFiles/Test.dir/__/src/core/source_file.cpp.o: ../include/string_utils.h
 test/CMakeFiles/Test.dir/__/src/core/source_file.cpp.o: ../include/tinyxml2.h
 test/CMakeFiles/Test.dir/__/src/core/source_file.cpp.o: ../tinyxml2/tinyxml2.h
 test/CMakeFiles/Test.dir/__/src/core/source_file.cpp.o: ../src/core/source_file.cpp
+
+test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o: ../include/re_utils.h
+test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o: ../src/utils/re_utils.cpp
 
 test/CMakeFiles/Test.dir/__/src/utils/string_utils.cpp.o: ../include/string_utils.h
 test/CMakeFiles/Test.dir/__/src/utils/string_utils.cpp.o: ../src/utils/string_utils.cpp
@@ -24,6 +28,7 @@ test/CMakeFiles/Test.dir/__/tinyxml2/tinyxml2.cpp.o: ../tinyxml2/tinyxml2.cpp
 test/CMakeFiles/Test.dir/__/tinyxml2/tinyxml2.cpp.o: ../tinyxml2/tinyxml2.h
 
 test/CMakeFiles/Test.dir/test.cpp.o: ../include/config.h
+test/CMakeFiles/Test.dir/test.cpp.o: ../include/re_utils.h
 test/CMakeFiles/Test.dir/test.cpp.o: ../include/rule.h
 test/CMakeFiles/Test.dir/test.cpp.o: ../include/source_file.h
 test/CMakeFiles/Test.dir/test.cpp.o: ../include/string_utils.h

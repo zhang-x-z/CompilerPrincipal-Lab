@@ -233,6 +233,33 @@ __/src/core/source_file.cpp.s:
 	cd /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build && $(MAKE) -f test/CMakeFiles/Test.dir/build.make test/CMakeFiles/Test.dir/__/src/core/source_file.cpp.s
 .PHONY : __/src/core/source_file.cpp.s
 
+__/src/utils/re_utils.o: __/src/utils/re_utils.cpp.o
+
+.PHONY : __/src/utils/re_utils.o
+
+# target to build an object file
+__/src/utils/re_utils.cpp.o:
+	cd /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build && $(MAKE) -f test/CMakeFiles/Test.dir/build.make test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o
+.PHONY : __/src/utils/re_utils.cpp.o
+
+__/src/utils/re_utils.i: __/src/utils/re_utils.cpp.i
+
+.PHONY : __/src/utils/re_utils.i
+
+# target to preprocess a source file
+__/src/utils/re_utils.cpp.i:
+	cd /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build && $(MAKE) -f test/CMakeFiles/Test.dir/build.make test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.i
+.PHONY : __/src/utils/re_utils.cpp.i
+
+__/src/utils/re_utils.s: __/src/utils/re_utils.cpp.s
+
+.PHONY : __/src/utils/re_utils.s
+
+# target to generate assembly for a file
+__/src/utils/re_utils.cpp.s:
+	cd /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build && $(MAKE) -f test/CMakeFiles/Test.dir/build.make test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.s
+.PHONY : __/src/utils/re_utils.cpp.s
+
 __/src/utils/string_utils.o: __/src/utils/string_utils.cpp.o
 
 .PHONY : __/src/utils/string_utils.o
@@ -335,6 +362,9 @@ help:
 	@echo "... __/src/core/source_file.o"
 	@echo "... __/src/core/source_file.i"
 	@echo "... __/src/core/source_file.s"
+	@echo "... __/src/utils/re_utils.o"
+	@echo "... __/src/utils/re_utils.i"
+	@echo "... __/src/utils/re_utils.s"
 	@echo "... __/src/utils/string_utils.o"
 	@echo "... __/src/utils/string_utils.i"
 	@echo "... __/src/utils/string_utils.s"

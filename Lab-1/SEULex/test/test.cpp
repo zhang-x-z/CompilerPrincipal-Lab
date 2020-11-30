@@ -2,8 +2,10 @@
 #include "tinyxml2.h"
 #include "string_utils.h"
 #include "source_file.h"
+#include "re_utils.h"
 #include <iostream>
 #include <string>
+#include <bitset>
 using namespace std;
 using namespace tinyxml2;
 
@@ -68,8 +70,27 @@ void test_source_file()
     }
 }
 
+void test_re_utils()
+{
+    unordered_map<string, string> map;
+    map.insert(make_pair("D", "(d|b)+"));
+    string re = "(我|你)*\\{D}";
+    re_utils::replace_braces(re, map);
+    cout << re << endl;
+}
+
 int main()
 {
-    test_source_file();
+    // XMLDocument doc;
+    // doc.LoadFile("test.xml");
+    // XMLElement *r = doc.FirstChildElement();
+    // r = r->FirstChildElement();
+    // string s(r->GetText());
+    // for (int i = 0; i < s.length(); i++)
+    // {
+    //     bitset<8> set(s.at(i));
+    //     cout << set << endl;
+    // }
+    test_re_utils();
     return 1;
 }

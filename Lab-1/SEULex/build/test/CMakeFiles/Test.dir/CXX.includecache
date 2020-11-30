@@ -10,6 +10,12 @@
 string
 -
 
+../include/re_utils.h
+string
+-
+unordered_map
+-
+
 ../include/rule.h
 string
 -
@@ -89,8 +95,14 @@ rule.h
 /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/src/core/source_file.cpp
 source_file.h
 /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/src/core/source_file.h
+re_utils.h
+/home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/src/core/re_utils.h
 string_utils.h
 /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/src/core/string_utils.h
+
+/home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/src/utils/re_utils.cpp
+re_utils.h
+/home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/src/utils/re_utils.h
 
 /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/src/utils/string_utils.cpp
 string_utils.h
@@ -105,9 +117,13 @@ string_utils.h
 /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/test/string_utils.h
 source_file.h
 /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/test/source_file.h
+re_utils.h
+/home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/test/re_utils.h
 iostream
 -
 string
+-
+bitset
 -
 
 /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/tinyxml2/tinyxml2.cpp
