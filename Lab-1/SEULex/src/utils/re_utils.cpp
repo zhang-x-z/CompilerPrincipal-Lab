@@ -1,5 +1,4 @@
 #include "re_utils.h"
-#include <iostream>
 
 void re_utils::replace_braces(string &re, const unordered_map<string, string> &map)
 {
@@ -50,4 +49,42 @@ void re_utils::replace_braces(string &re, const unordered_map<string, string> &m
 
 void re_utils::replace_brackets(string &re)
 {
+    int start = 0;
+    string res = "";
+    int index = re.find_first_of('[');
+    if (index == re.npos)
+        return;
+    while (index != re.npos)
+    {
+        res += re.substr(start, index - start);
+        if (index == 0 || re.at(index - 1) != '\\')
+        {
+            int count = index + 1;
+            bool is_not = false;
+            if (re.at(index + 1) == '^')
+            {
+                count++;
+                is_not = true;
+            }
+            bool espace = false;
+            bool finded = false;
+            while (count < re.length())
+            {
+                if (re.at(count) == '\\' && !espace)
+                    espace = true;
+                else
+                {
+                    if (espace)
+                    {
+                                        }
+                }
+            }
+        }
+        else
+        {
+            res.erase(res.length() - 1);
+            res += '{';
+            start = index + 1;
+        }
+    }
 }

@@ -3,6 +3,7 @@
 #include "string_utils.h"
 #include "source_file.h"
 #include "re_utils.h"
+#include "string_iterator.h"
 #include <iostream>
 #include <string>
 #include <bitset>
@@ -77,6 +78,13 @@ void test_re_utils()
     string re = "(a|c)*\\{D}\\{";
     re_utils::replace_braces(re, map);
     cout << re << endl;
+}
+
+void test_utf8_string_iterator()
+{
+    string_iterator *p = new utf8_string_iterator();
+    p->set_string("我和你");
+    string s = p->next();
 }
 
 int main()

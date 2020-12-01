@@ -7,3 +7,4 @@ build/CMakeCache.txt
 build/compile_commands.json
 build/Makefile
 bin/SEULex
+bin/test/Test
