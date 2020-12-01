@@ -9,7 +9,7 @@ void re_utils::replace_braces(string &re, const unordered_map<string, string> &m
         return;
     while (index != re.npos)
     {
-        res += re.substr(start, index);
+        res += re.substr(start, index - start);
         if (index == 0 || re.at(index - 1) != '\\')
         {
             string name = "";
@@ -47,7 +47,7 @@ void re_utils::replace_braces(string &re, const unordered_map<string, string> &m
     re = res;
 }
 
-void re_utils::replace_brackets(string & re)
+void re_utils::replace_brackets(string &re)
 {
     int start = 0;
     string res = "";
@@ -76,8 +76,7 @@ void re_utils::replace_brackets(string & re)
                 {
                     if (espace)
                     {
-                        
-                    }
+                                        }
                 }
             }
         }
