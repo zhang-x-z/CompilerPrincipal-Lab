@@ -31,6 +31,24 @@ Config::Config()
         {
             source_file_location = value;
         }
+        else if (options == "encoding")
+        {
+            if (value == "utf8" || value == "UTF8" || value == "UTF-8" || value == "utf-8")
+                encoding = UTF8;
+            //TODO: add more encodingS
+            else
+                throw runtime_error("In config.properties: Line: " + line + "\nEncoding: " + value + " is not supported.");
+        }
+        else if (options == "charset")
+        {
+            if (value == "unicode" || value == "Unicode" || value == "UNICODE")
+                charset = UNICODE;
+            else if (value == "ascii" || value == "Ascii" || value == "ASCII")
+                charset = ASCII;
+            //TODO: add more charset
+            else
+                throw runtime_error("In config.properties: Line: " + line + "\nCharset: " + value + " is not supported.");
+        }
         //TODO: maybe have more config options
         else
         {
@@ -53,6 +71,16 @@ int Config::get_buffer_size()
 const string &Config::get_source_file_loaction()
 {
     return this->source_file_location;
+}
+
+int Config::get_encoding()
+{
+    return encoding;
+}
+
+int Config::get_charset()
+{
+    return charset;
 }
 
 void Config::delete_instance()
