@@ -1,4 +1,5 @@
 #include "re_utils.h"
+#include <iostream>
 
 void re_utils::replace_braces(string &re, const unordered_map<string, string> &map)
 {
@@ -9,35 +10,26 @@ void re_utils::replace_braces(string &re, const unordered_map<string, string> &m
         return;
     while (index != re.npos)
     {
+        cout << start << " " << index << endl;
+        cout << re.substr(start, index) << endl;
         res += re.substr(start, index);
-        char c = re.at(index - 1);
         if (index == 0 || re.at(index - 1) != '\\')
         {
             string name = "";
             bool finded = false;
-            bool is_espace = false;
             for (int i = index + 1; i < re.length(); i++)
             {
-                char c = re.at(i);
-                if (c == '\\' && !is_espace)
-                    is_espace = true;
-                else
+                char cur = re.at(i);
+                char before = re.at(i - 1);
+                if (cur == '}' && before != '\\')
                 {
-                    if (c == '}')
-                    {
-                        if (is_espace)
-                            is_espace = false;
-                        else
-                        {
-                            start = i + 1;
-                            finded = true;
-                            break;
-                        }
-                    }
-                    if (c == '\\')
-                        is_espace = false;
-                    name += c;
+                    start = i + 1;
+                    finded = true;
+                    break;
                 }
+                if (cur == '}')
+                    name.erase(name.length() - 1);
+                name += cur;
             }
 
             if (!finded)
@@ -48,6 +40,7 @@ void re_utils::replace_braces(string &re, const unordered_map<string, string> &m
         }
         else
         {
+            res.erase(res.length() - 1);
             res += '{';
             start = index + 1;
         }
@@ -55,4 +48,8 @@ void re_utils::replace_braces(string &re, const unordered_map<string, string> &m
     }
     res += re.substr(start);
     re = res;
+}
+
+void re_utils::replace_brackets(string & re)
+{
 }

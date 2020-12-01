@@ -74,7 +74,7 @@ void test_re_utils()
 {
     unordered_map<string, string> map;
     map.insert(make_pair("D", "(d|b)+"));
-    string re = "(我|你)*\\{D}";
+    string re = "(a|c)*\\{D}\\{";
     re_utils::replace_braces(re, map);
     cout << re << endl;
 }

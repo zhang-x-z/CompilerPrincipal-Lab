@@ -8,4 +8,5 @@ class re_utils
 {
 public:
     static void replace_braces(string &, const unordered_map<string, string> &);
+    static void replace_brackets(string &);
 };
