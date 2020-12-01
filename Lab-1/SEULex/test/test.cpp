@@ -80,9 +80,13 @@ void test_re_utils()
     re_utils::replace_braces(re, map);
     cout << re << endl;
 
-    re = "(a|c|b)*t[a-d]";
+    re = "(a|b|c)*t[^abcdefghijklmnopqrstuvwxyz0123456789]"; //"\[ac]""(a|b|c)*t[ad-]""(a|b|c)*t[a[\\]""[a-e]""(a|b|c)*t[c-a]""(a|b|c)*t[-cd]"
     re_utils::replace_brackets(re);
     cout << re << endl;
+
+    re = "[^abcdefghijklmnopqrstuvwxyz]";
+    re_utils::replace_brackets(re);
+    cout << re.length() << endl;
 }
 
 void test_utf8_string_iterator()

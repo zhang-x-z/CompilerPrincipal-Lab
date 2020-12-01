@@ -151,7 +151,7 @@ void re_utils::replace_brackets(string &re)
                             }
                             res.erase(res.length() - 1);
                             res += ")";
-                            start = index + 1;
+                            start = it->get_current_pos() + 1;
                             break;
                         }
                         else

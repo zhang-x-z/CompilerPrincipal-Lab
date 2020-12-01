@@ -6,6 +6,8 @@ Config *Config::config = new Config();
 
 Config::Config()
 {
+    encoding = UTF8;
+    charset = ASCII;
     ifstream in("config.properties");
     if (!in)
     {
