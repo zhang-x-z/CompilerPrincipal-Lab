@@ -36,6 +36,10 @@ tinyxml2.h
 config.h
 ../include/config.h
 
+../include/string_iterator.h
+string
+-
+
 ../include/string_utils.h
 string
 -
@@ -45,6 +49,10 @@ vector
 ../include/tinyxml2.h
 ../tinyxml2/tinyxml2.h
 ../tinyxml2/tinyxml2.h
+
+../include/utf8_string_iterator.h
+string_iterator.h
+../include/string_iterator.h
 
 ../tinyxml2/tinyxml2.h
 ctype.h
@@ -100,11 +108,13 @@ re_utils.h
 string_utils.h
 /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/src/core/string_utils.h
 
+/home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/src/core/utf8_string_iterator.cpp
+utf8_string_iterator.h
+/home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/src/core/utf8_string_iterator.h
+
 /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/src/utils/re_utils.cpp
 re_utils.h
 /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/src/utils/re_utils.h
-iostream
--
 
 /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/src/utils/string_utils.cpp
 string_utils.h
@@ -121,6 +131,8 @@ source_file.h
 /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/test/source_file.h
 re_utils.h
 /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/test/re_utils.h
+string_iterator.h
+/home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/test/string_iterator.h
 iostream
 -
 string

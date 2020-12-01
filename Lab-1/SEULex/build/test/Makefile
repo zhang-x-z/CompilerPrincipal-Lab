@@ -233,6 +233,33 @@ __/src/core/source_file.cpp.s:
 	cd /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build && $(MAKE) -f test/CMakeFiles/Test.dir/build.make test/CMakeFiles/Test.dir/__/src/core/source_file.cpp.s
 .PHONY : __/src/core/source_file.cpp.s
 
+__/src/core/utf8_string_iterator.o: __/src/core/utf8_string_iterator.cpp.o
+
+.PHONY : __/src/core/utf8_string_iterator.o
+
+# target to build an object file
+__/src/core/utf8_string_iterator.cpp.o:
+	cd /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build && $(MAKE) -f test/CMakeFiles/Test.dir/build.make test/CMakeFiles/Test.dir/__/src/core/utf8_string_iterator.cpp.o
+.PHONY : __/src/core/utf8_string_iterator.cpp.o
+
+__/src/core/utf8_string_iterator.i: __/src/core/utf8_string_iterator.cpp.i
+
+.PHONY : __/src/core/utf8_string_iterator.i
+
+# target to preprocess a source file
+__/src/core/utf8_string_iterator.cpp.i:
+	cd /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build && $(MAKE) -f test/CMakeFiles/Test.dir/build.make test/CMakeFiles/Test.dir/__/src/core/utf8_string_iterator.cpp.i
+.PHONY : __/src/core/utf8_string_iterator.cpp.i
+
+__/src/core/utf8_string_iterator.s: __/src/core/utf8_string_iterator.cpp.s
+
+.PHONY : __/src/core/utf8_string_iterator.s
+
+# target to generate assembly for a file
+__/src/core/utf8_string_iterator.cpp.s:
+	cd /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build && $(MAKE) -f test/CMakeFiles/Test.dir/build.make test/CMakeFiles/Test.dir/__/src/core/utf8_string_iterator.cpp.s
+.PHONY : __/src/core/utf8_string_iterator.cpp.s
+
 __/src/utils/re_utils.o: __/src/utils/re_utils.cpp.o
 
 .PHONY : __/src/utils/re_utils.o
@@ -362,6 +389,9 @@ help:
 	@echo "... __/src/core/source_file.o"
 	@echo "... __/src/core/source_file.i"
 	@echo "... __/src/core/source_file.s"
+	@echo "... __/src/core/utf8_string_iterator.o"
+	@echo "... __/src/core/utf8_string_iterator.i"
+	@echo "... __/src/core/utf8_string_iterator.s"
 	@echo "... __/src/utils/re_utils.o"
 	@echo "... __/src/utils/re_utils.i"
 	@echo "... __/src/utils/re_utils.s"

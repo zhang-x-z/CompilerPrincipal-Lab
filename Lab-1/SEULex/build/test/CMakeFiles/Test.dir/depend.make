@@ -18,6 +18,10 @@ test/CMakeFiles/Test.dir/__/src/core/source_file.cpp.o: ../include/tinyxml2.h
 test/CMakeFiles/Test.dir/__/src/core/source_file.cpp.o: ../tinyxml2/tinyxml2.h
 test/CMakeFiles/Test.dir/__/src/core/source_file.cpp.o: ../src/core/source_file.cpp
 
+test/CMakeFiles/Test.dir/__/src/core/utf8_string_iterator.cpp.o: ../include/string_iterator.h
+test/CMakeFiles/Test.dir/__/src/core/utf8_string_iterator.cpp.o: ../include/utf8_string_iterator.h
+test/CMakeFiles/Test.dir/__/src/core/utf8_string_iterator.cpp.o: ../src/core/utf8_string_iterator.cpp
+
 test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o: ../include/re_utils.h
 test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o: ../src/utils/re_utils.cpp
 
@@ -31,6 +35,7 @@ test/CMakeFiles/Test.dir/test.cpp.o: ../include/config.h
 test/CMakeFiles/Test.dir/test.cpp.o: ../include/re_utils.h
 test/CMakeFiles/Test.dir/test.cpp.o: ../include/rule.h
 test/CMakeFiles/Test.dir/test.cpp.o: ../include/source_file.h
+test/CMakeFiles/Test.dir/test.cpp.o: ../include/string_iterator.h
 test/CMakeFiles/Test.dir/test.cpp.o: ../include/string_utils.h
 test/CMakeFiles/Test.dir/test.cpp.o: ../include/tinyxml2.h
 test/CMakeFiles/Test.dir/test.cpp.o: ../tinyxml2/tinyxml2.h

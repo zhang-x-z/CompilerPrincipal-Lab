@@ -18,6 +18,10 @@ test/CMakeFiles/Test.dir/__/src/core/source_file.cpp.o
  ../include/tinyxml2.h
  ../tinyxml2/tinyxml2.h
  /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/src/core/source_file.cpp
+test/CMakeFiles/Test.dir/__/src/core/utf8_string_iterator.cpp.o
+ ../include/string_iterator.h
+ ../include/utf8_string_iterator.h
+ /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/src/core/utf8_string_iterator.cpp
 test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o
  ../include/re_utils.h
  /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/src/utils/re_utils.cpp
@@ -32,6 +36,7 @@ test/CMakeFiles/Test.dir/test.cpp.o
  ../include/re_utils.h
  ../include/rule.h
  ../include/source_file.h
+ ../include/string_iterator.h
  ../include/string_utils.h
  ../include/tinyxml2.h
  ../tinyxml2/tinyxml2.h

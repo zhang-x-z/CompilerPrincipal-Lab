@@ -135,9 +135,22 @@ test/CMakeFiles/Test.dir/__/src/core/source_file.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Test.dir/__/src/core/source_file.cpp.s"
 	cd /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build/test && /usr/bin/clang++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/src/core/source_file.cpp -o CMakeFiles/Test.dir/__/src/core/source_file.cpp.s
 
+test/CMakeFiles/Test.dir/__/src/core/utf8_string_iterator.cpp.o: test/CMakeFiles/Test.dir/flags.make
+test/CMakeFiles/Test.dir/__/src/core/utf8_string_iterator.cpp.o: ../src/core/utf8_string_iterator.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object test/CMakeFiles/Test.dir/__/src/core/utf8_string_iterator.cpp.o"
+	cd /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build/test && /usr/bin/clang++-9  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Test.dir/__/src/core/utf8_string_iterator.cpp.o -c /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/src/core/utf8_string_iterator.cpp
+
+test/CMakeFiles/Test.dir/__/src/core/utf8_string_iterator.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Test.dir/__/src/core/utf8_string_iterator.cpp.i"
+	cd /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build/test && /usr/bin/clang++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/src/core/utf8_string_iterator.cpp > CMakeFiles/Test.dir/__/src/core/utf8_string_iterator.cpp.i
+
+test/CMakeFiles/Test.dir/__/src/core/utf8_string_iterator.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Test.dir/__/src/core/utf8_string_iterator.cpp.s"
+	cd /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build/test && /usr/bin/clang++-9 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/src/core/utf8_string_iterator.cpp -o CMakeFiles/Test.dir/__/src/core/utf8_string_iterator.cpp.s
+
 test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o: test/CMakeFiles/Test.dir/flags.make
 test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o: ../src/utils/re_utils.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o"
 	cd /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build/test && /usr/bin/clang++-9  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o -c /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/src/utils/re_utils.cpp
 
 test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.i: cmake_force
@@ -150,7 +163,7 @@ test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.s: cmake_force
 
 test/CMakeFiles/Test.dir/__/src/utils/string_utils.cpp.o: test/CMakeFiles/Test.dir/flags.make
 test/CMakeFiles/Test.dir/__/src/utils/string_utils.cpp.o: ../src/utils/string_utils.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CXX object test/CMakeFiles/Test.dir/__/src/utils/string_utils.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CXX object test/CMakeFiles/Test.dir/__/src/utils/string_utils.cpp.o"
 	cd /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build/test && /usr/bin/clang++-9  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Test.dir/__/src/utils/string_utils.cpp.o -c /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/src/utils/string_utils.cpp
 
 test/CMakeFiles/Test.dir/__/src/utils/string_utils.cpp.i: cmake_force
@@ -169,6 +182,7 @@ Test_OBJECTS = \
 "CMakeFiles/Test.dir/__/src/core/NFA.cpp.o" \
 "CMakeFiles/Test.dir/__/src/core/rule.cpp.o" \
 "CMakeFiles/Test.dir/__/src/core/source_file.cpp.o" \
+"CMakeFiles/Test.dir/__/src/core/utf8_string_iterator.cpp.o" \
 "CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o" \
 "CMakeFiles/Test.dir/__/src/utils/string_utils.cpp.o"
 
@@ -181,11 +195,12 @@ Test_EXTERNAL_OBJECTS =
 ../bin/test/Test: test/CMakeFiles/Test.dir/__/src/core/NFA.cpp.o
 ../bin/test/Test: test/CMakeFiles/Test.dir/__/src/core/rule.cpp.o
 ../bin/test/Test: test/CMakeFiles/Test.dir/__/src/core/source_file.cpp.o
+../bin/test/Test: test/CMakeFiles/Test.dir/__/src/core/utf8_string_iterator.cpp.o
 ../bin/test/Test: test/CMakeFiles/Test.dir/__/src/utils/re_utils.cpp.o
 ../bin/test/Test: test/CMakeFiles/Test.dir/__/src/utils/string_utils.cpp.o
 ../bin/test/Test: test/CMakeFiles/Test.dir/build.make
 ../bin/test/Test: test/CMakeFiles/Test.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Linking CXX executable ../../bin/test/Test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Linking CXX executable ../../bin/test/Test"
 	cd /home/zxz/github/CompilerPrincipal-Lab/Lab-1/SEULex/build/test && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Test.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
