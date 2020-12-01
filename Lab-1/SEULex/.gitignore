@@ -1,6 +1,7 @@
 .vscode/
 build/CMakeFiles/
 build/src/
+build/test/
 build/cmake_install.cmake
 build/CMakeCache.txt
 build/compile_commands.json

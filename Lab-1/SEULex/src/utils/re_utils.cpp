@@ -10,9 +10,7 @@ void re_utils::replace_braces(string &re, const unordered_map<string, string> &m
         return;
     while (index != re.npos)
     {
-        cout << start << " " << index << endl;
-        cout << re.substr(start, index) << endl;
-        res += re.substr(start, index);
+        res += re.substr(start, index - start);
         if (index == 0 || re.at(index - 1) != '\\')
         {
             string name = "";
@@ -50,6 +48,6 @@ void re_utils::replace_braces(string &re, const unordered_map<string, string> &m
     re = res;
 }
 
-void re_utils::replace_brackets(string & re)
+void re_utils::replace_brackets(string &re)
 {
 }
