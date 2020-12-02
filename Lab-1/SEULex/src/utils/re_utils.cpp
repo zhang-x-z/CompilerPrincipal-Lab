@@ -222,6 +222,8 @@ string re_utils::espace_basic_symbol(const string &c)
         ans = "\\+";
     else if (c == "(")
         ans = "\\(";
+    else if (c == ")")
+        ans = "\\)";
     else if (c == "?")
         ans = "\\?";
     else if (c == "*")
