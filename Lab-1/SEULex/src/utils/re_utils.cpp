@@ -174,6 +174,7 @@ void re_utils::replace_brackets(string &re)
         index = re.find_first_of('[', start);
     }
     res += re.substr(start);
+    delete it;
     re = res;
 }
 
@@ -255,4 +256,46 @@ charset *re_utils::get_charset()
     //TODO: add unicode charset
     //else if ()
     return p;
+}
+
+void re_utils::construct_stack(const string &re, stack<string> &s)
+{
+    string_iterator *it = get_string_iterator();
+    it->set_string(re);
+    it->set_current_pos(0);
+    while (it->has_next())
+    {
+        string c = it->next();
+        if (c != "\\")
+            s.push(c);
+        else
+        {
+            if (!it->has_next())
+                throw runtime_error("No more character after \\.");
+            c += it->next();
+            s.push(c);
+        }
+    }
+    delete it;
+}
+
+void re_utils::construct_queue(const string &re, queue<string> &s)
+{
+    string_iterator *it = get_string_iterator();
+    it->set_string(re);
+    it->set_current_pos(0);
+    while (it->has_next())
+    {
+        string c = it->next();
+        if (c != "\\")
+            s.push(c);
+        else
+        {
+            if (!it->has_next())
+                throw runtime_error("No more character after \\.");
+            c += it->next();
+            s.push(c);
+        }
+    }
+    delete it;
 }
