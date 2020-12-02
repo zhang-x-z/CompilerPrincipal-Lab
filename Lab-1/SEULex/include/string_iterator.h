@@ -10,4 +10,5 @@ public:
     virtual void set_string(const string &) = 0;
     virtual void set_current_pos(int) = 0;
     virtual int get_current_pos() = 0;
+    virtual ~string_iterator(){};
 };

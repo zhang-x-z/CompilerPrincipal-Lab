@@ -13,6 +13,7 @@ class re_utils
 public:
     static void replace_braces(string &, const unordered_map<string, string> &);
     static void replace_brackets(string &);
+    static void replace_plus_and_question(string &);
     static string espace_basic_symbol(const string &);
     static void construct_stack(const string &, stack<string> &);
     static void construct_queue(const string &, queue<string> &);

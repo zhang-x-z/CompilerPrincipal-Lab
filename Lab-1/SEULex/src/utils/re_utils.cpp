@@ -178,6 +178,35 @@ void re_utils::replace_brackets(string &re)
     re = res;
 }
 
+void re_utils::replace_plus_and_question(string &re)
+{
+    stack<string> search;
+    stack<string> save;
+    construct_stack(re, search);
+
+    while (!search.empty())
+    {
+        string tmp = search.top();
+        search.pop();
+        if (tmp == "?")
+        {
+            save.push("(");
+            int count = 0;
+            bool finded = false;
+            while (!search.empty())
+            {
+            }
+        }
+        else if (tmp == "+")
+        {
+        }
+        else
+        {
+            save.push(tmp);
+        }
+    }
+}
+
 string re_utils::handle_bracket_espace(const string &c)
 {
     string ans;
