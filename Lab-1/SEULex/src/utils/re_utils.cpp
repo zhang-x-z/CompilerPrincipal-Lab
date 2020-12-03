@@ -178,32 +178,119 @@ void re_utils::replace_brackets(string &re)
     re = res;
 }
 
-void re_utils::replace_plus_and_question(string &re)
+void re_utils::replace_plus_question_and_check_parentheses(string &re)
 {
     stack<string> search;
     stack<string> save;
     construct_stack(re, search);
 
+    int parentheses_count = 0;
+
     while (!search.empty())
     {
         string tmp = search.top();
         search.pop();
-        if (tmp == "?")
+        if (tmp == "?" || tmp == "+")
         {
-            save.push("(");
-            int count = 0;
-            bool finded = false;
-            while (!search.empty())
+            if (search.empty())
+                throw runtime_error("Bad statement with " + tmp + " (Can not be the first symbol)");
+            string _c = search.top();
+            search.pop();
+            if (!is_basic_symbol(_c) && _c != "+" && _c != "?")
             {
+                save.push(")");
+                if (tmp == "?")
+                {
+                    save.push(_c);
+                    save.push("|");
+                    save.push("\\@");
+                }
+                else
+                {
+                    save.push("*");
+                    save.push(_c);
+                    save.push(_c);
+                }
+                save.push("(");
             }
-        }
-        else if (tmp == "+")
-        {
+            else if (_c == ")")
+            {
+                int _count = 1;
+                stack<string> _tmp_stack;
+                bool finded = false;
+                _tmp_stack.push(")");
+                while (!search.empty())
+                {
+                    string _tmp = search.top();
+                    search.pop();
+                    if (_tmp == ")")
+                        _count++;
+                    else if (_tmp == "(")
+                        _count--;
+                    _tmp_stack.push(_tmp);
+                    if (_count == 0)
+                    {
+                        finded = true;
+                        break;
+                    }
+                }
+
+                if (!finded)
+                    throw runtime_error("')' doesn't have matched '('");
+                if (tmp == "?")
+                {
+                    search.push("(");
+                    search.push("\\@");
+                    search.push("|");
+                    while (!_tmp_stack.empty())
+                    {
+                        search.push(_tmp_stack.top());
+                        _tmp_stack.pop();
+                    }
+                    search.push(")");
+                }
+                else
+                {
+                    stack<string> _tmp_stack2(_tmp_stack);
+                    search.push("(");
+                    while (!_tmp_stack2.empty())
+                    {
+                        search.push(_tmp_stack2.top());
+                        _tmp_stack2.pop();
+                    }
+
+                    while (!_tmp_stack.empty())
+                    {
+                        search.push(_tmp_stack.top());
+                        _tmp_stack.pop();
+                    }
+
+                    search.push("*");
+                    search.push(")");
+                }
+            }
+            else
+                throw runtime_error("Bad statement with " + tmp + " (The character before " + tmp + " can not be " + _c + ")");
         }
         else
         {
+            if (tmp == ")")
+                parentheses_count++;
+            else if (tmp == "(")
+                parentheses_count--;
             save.push(tmp);
         }
+        if (parentheses_count < 0)
+            throw runtime_error("'(' doesn't have matched ')'");
+    }
+
+    if (parentheses_count > 0)
+        throw runtime_error("')' doesn't have matched '('.");
+    re.clear();
+    while (!save.empty())
+    {
+        re.append(save.top());
+        save.pop();
     }
 }
 
@@ -243,6 +330,12 @@ string re_utils::handle_bracket_espace(const string &c)
             ans = c;
     }
     return ans;
+}
+
+//(, ) *, |
+bool re_utils::is_basic_symbol(const string &c)
+{
+    return (c == "(" || c == ")" || c == "*" || c == "|");
 }
 
 string re_utils::espace_basic_symbol(const string &c)
@@ -300,7 +393,7 @@ void re_utils::construct_stack(const string &re, stack<string> &s)
         else
         {
             if (!it->has_next())
-                throw runtime_error("No more character after \\.");
+                throw runtime_error("No more character after \\");
             c += it->next();
             s.push(c);
         }

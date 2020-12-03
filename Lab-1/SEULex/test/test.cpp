@@ -74,25 +74,43 @@ void test_source_file()
 
 void test_re_utils()
 {
-    unordered_map<string, string> map;
-    map.insert(make_pair("D", "(d|b)+"));
-    string re = "(a|c)*\\{D}\\{";
-    re_utils::replace_braces(re, map);
+    // unordered_map<string, string> map;
+    // map.insert(make_pair("D", "(d|b)+"));
+    // string re = "(a|c)*\\{D}\\{";
+    // re_utils::replace_braces(re, map);
+    // cout << re << endl;
+
+    // re = "(a|b|c)*t[^abcdefghijklmnopqrstuvwxyz0123456789]"; //"\[ac]""(a|b|c)*t[ad-]""(a|b|c)*t[a[\\]""[a-e]""(a|b|c)*t[c-a]""(a|b|c)*t[-cd]"
+    // re_utils::replace_brackets(re);
+    // cout << re.at(0) << endl;
+    // cout << re.at(1) << endl;
+    // cout << re.at(2) << endl;
+
+    // re = "[^abcdefghijklmnopqrstuvwxyz]";
+    // re_utils::replace_brackets(re);
+    // cout << re.length() << endl;
+
+    // re = "[^abcdefghijklmnopqrstuvwxyz-](a|b)?";
+    // re_utils::replace_brackets(re);
+    // cout << re << endl;
+
+    string re = "a+";
+    re_utils::replace_plus_question_and_check_parentheses(re);
     cout << re << endl;
 
-    re = "(a|b|c)*t[^abcdefghijklmnopqrstuvwxyz0123456789]"; //"\[ac]""(a|b|c)*t[ad-]""(a|b|c)*t[a[\\]""[a-e]""(a|b|c)*t[c-a]""(a|b|c)*t[-cd]"
-    re_utils::replace_brackets(re);
-    cout << re.at(0) << endl;
-    cout << re.at(1) << endl;
-    cout << re.at(2) << endl;
-
-    re = "[^abcdefghijklmnopqrstuvwxyz]";
-    re_utils::replace_brackets(re);
-    cout << re.length() << endl;
-
-    re = "[^abcdefghijklmnopqrstuvwxyz-](a|b)?";
-    re_utils::replace_brackets(re);
+    re = "((a|b)+)?";
+    re_utils::replace_plus_question_and_check_parentheses(re);
     cout << re << endl;
+
+    re = "(a|b(q+))";
+    re_utils::replace_plus_question_and_check_parentheses(re);
+    cout << re << endl;
+
+    re = "a|b?)a+";
+    // re_utils::replace_plus_question_and_check_parentheses(re);
+
+    re = "(a|b)a|b)+";
+    re_utils::replace_plus_question_and_check_parentheses(re);
 }
 
 void test_utf8_string_iterator()
