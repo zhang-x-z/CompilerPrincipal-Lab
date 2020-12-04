@@ -72,7 +72,7 @@ void test_source_file()
     }
 }
 
-void test_re_utils()
+void test_re_utils_part()
 {
     // unordered_map<string, string> map;
     // map.insert(make_pair("D", "(d|b)+"));
@@ -113,16 +113,32 @@ void test_re_utils()
     //re_utils::replace_plus_question_and_check_parentheses(re);
 
     re = ".";
-    re_utils::handle_dot(re);
-    cout << re << endl;
+    // re_utils::handle_dot(re);
+    // cout << re << endl;
 
     re = "(a|b|c).*";
-    re_utils::handle_dot(re);
-    cout << re << endl;
+    // re_utils::handle_dot(re);
+    // cout << re << endl;
 
     re = "(a|c)*\\..*";
-    re_utils::handle_dot(re);
+    //re_utils::handle_dot(re);
+    //cout << re << endl;
+
+    re = "(a|b)(c|d|e)*";
+    re_utils::add_dot(re);
     cout << re << endl;
+
+    re = "abcdef*(a|b)*";
+    re_utils::add_dot(re);
+    cout << re << endl;
+
+    re = "a\\*b(c|d)(e|f)*p";
+    re_utils::add_dot(re);
+    cout << re << endl;
+
+    re = "a\\b\\.\\\\\\t*\\((a|b)*\\n";
+    re_utils::handle_espace(re);
+    cout << re;
 }
 
 void test_utf8_string_iterator()
@@ -134,6 +150,15 @@ void test_utf8_string_iterator()
         string s = p->next();
         cout << s << endl;
     }
+}
+
+void test_re_utils()
+{
+    unordered_map<string, string> map;
+    map.insert(make_pair("D", "[a-z]*(d|b)+"));
+    string re = "(a|c)?{D}\\{";
+    re_utils::pre_process_re(re, map);
+    cout << re << endl;
 }
 
 int main()

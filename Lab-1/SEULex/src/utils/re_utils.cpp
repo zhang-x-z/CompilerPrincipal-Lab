@@ -3,6 +3,24 @@
 #include "utf8_string_iterator.h"
 #include "ascii_charset.h"
 #include <unordered_set>
+#include <iostream>
+
+void re_utils::pre_process_re(string &re, const unordered_map<string, string> &map)
+{
+    cout << re << endl;
+    replace_braces(re, map);
+    cout << re << endl;
+    replace_brackets(re);
+    cout << re << endl;
+    replace_plus_question_and_check_parentheses(re);
+    cout << re << endl;
+    handle_dot(re);
+    cout << re << endl;
+    add_dot(re);
+    cout << re << endl;
+    handle_espace(re);
+    cout << re << endl;
+}
 
 void re_utils::replace_braces(string &re, const unordered_map<string, string> &map)
 {
@@ -124,12 +142,12 @@ void re_utils::replace_brackets(string &re)
                                         char _t = lc;
                                         while (_t <= nc)
                                         {
-                                            _t += 1;
                                             string _tmp(1, _t);
+                                            // TODO: delete test cout
                                             char_set.insert(_tmp);
-                                            //TODO: change last char
-                                            last_char = "had"; //make [a-c-f] illegel
+                                            _t += 1;
                                         }
+                                        last_char = "had"; //make [a-c-f] illegel
                                     }
                                     else
                                         throw runtime_error("Bad statement with -.");
@@ -312,7 +330,7 @@ void re_utils::handle_dot(string &re)
             unordered_set<string> set;
             _set->universe_set(set);
             delete _set;
-            for (auto c: set)
+            for (auto c : set)
             {
                 res += c;
                 res += "|";
@@ -324,6 +342,125 @@ void re_utils::handle_dot(string &re)
             res += ".";
         start = index + 1;
         index = re.find_first_of('.', start);
+    }
+    res += re.substr(start);
+    re = res;
+}
+
+void re_utils::add_dot(string &re)
+{
+    const int CHAR = 1;
+    const int RIGHTBRACKET = 2;
+    const int LEFTBRACKET = 3;
+    const int STAR = 4;
+    const int OTHER = 5;
+
+    queue<string> char_queue;
+    construct_queue(re, char_queue);
+    if (char_queue.empty())
+        throw runtime_error("Empty regular expression after pre-process.");
+    string res;
+    string last = char_queue.front();
+    res += last;
+    char_queue.pop();
+
+    int last_type;
+
+    if (last.length() > 1 || (last != "(" && last != ")" && last != "|" && last != "*"))
+        last_type = CHAR;
+    else if (last == ")")
+        last_type = RIGHTBRACKET;
+    else if (last == "*")
+        last_type = STAR;
+    else if (last == "(")
+        last_type = LEFTBRACKET;
+    else
+        last_type = OTHER;
+
+    while (!char_queue.empty())
+    {
+        string behind = char_queue.front();
+        char_queue.pop();
+        int behind_type;
+        if (behind.length() > 1 || (behind != "(" && behind != ")" && behind != "|" && behind != "*"))
+            behind_type = CHAR;
+        else if (behind == ")")
+            behind_type = RIGHTBRACKET;
+        else if (behind == "*")
+            behind_type = STAR;
+        else if (behind == "(")
+            behind_type = LEFTBRACKET;
+        else
+            behind_type = OTHER;
+        if (last_type == CHAR || last_type == RIGHTBRACKET || last_type == STAR)
+        {
+            if (behind_type == CHAR || behind_type == LEFTBRACKET)
+            {
+                res += ".";
+            }
+        }
+        res += behind;
+        last = behind;
+        last_type = behind_type;
+    }
+
+    re = res;
+}
+
+void re_utils::handle_espace(string &re)
+{
+    int start = 0;
+    int index = re.find_first_of('\\', start);
+    string res;
+    while (index != re.npos)
+    {
+        if (index == re.length() - 1)
+            throw runtime_error("Bad statement with \\. (No more character after \\)");
+        res += re.substr(start, index - start);
+        char c = re.at(index + 1);
+        string to_append(1, c);
+        switch (c)
+        {
+        case 't':
+            to_append = "\t";
+            break;
+        case 'n':
+            to_append = "\n";
+            break;
+        case 'f':
+            to_append = "\f";
+            break;
+        case 'v':
+            to_append = "\v";
+            break;
+        case 'r':
+            to_append = "\r";
+            break;
+        case '(':
+            to_append = "\\(";
+            break;
+        case ')':
+            to_append = "\\)";
+            break;
+        case '|':
+            to_append = "\\|";
+            break;
+        case '*':
+            to_append = "\\*";
+            break;
+        case '.':
+            to_append = "\\.";
+            break;
+        case '\\':
+            to_append = "\\\\";
+            break;
+        case '@':
+            to_append = "\\@";
+            break;
+        }
+        res += to_append;
+        start = index + 2;
+        index = re.find_first_of('\\', start);
     }
     res += re.substr(start);
     re = res;
@@ -342,20 +479,6 @@ string re_utils::handle_bracket_espace(const string &c)
         ans = "\v";
     else if (c == "r")
         ans = "\r";
-    else if (c == "+")
-        ans = "\\+";
-    else if (c == "(")
-        ans = "\\(";
-    else if (c == "?")
-        ans = "\\?";
-    else if (c == "*")
-        ans = "\\*";
-    else if (c == ".")
-        ans = "\\.";
-    else if (c == "\\")
-        ans = "\\\\";
-    else if (c == "|")
-        ans = "\\|";
     else
     {
         string tmp = espace_basic_symbol(c);
