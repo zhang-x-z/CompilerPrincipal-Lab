@@ -110,7 +110,19 @@ void test_re_utils()
     // re_utils::replace_plus_question_and_check_parentheses(re);
 
     re = "(a|b)a|b)+";
-    re_utils::replace_plus_question_and_check_parentheses(re);
+    //re_utils::replace_plus_question_and_check_parentheses(re);
+
+    re = ".";
+    re_utils::handle_dot(re);
+    cout << re << endl;
+
+    re = "(a|b|c).*";
+    re_utils::handle_dot(re);
+    cout << re << endl;
+
+    re = "(a|c)*\\..*";
+    re_utils::handle_dot(re);
+    cout << re << endl;
 }
 
 void test_utf8_string_iterator()

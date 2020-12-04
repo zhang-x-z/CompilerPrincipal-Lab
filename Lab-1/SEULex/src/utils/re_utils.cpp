@@ -140,9 +140,12 @@ void re_utils::replace_brackets(string &re)
                         {
                             //TODO: end
                             is_finded = true;
-                            charset *_set = get_charset();
                             if (is_not)
+                            {
+                                charset *_set = get_charset();
                                 _set->complementary_set(char_set);
+                                delete _set;
+                            }
                             res += "(";
                             for (auto _c : char_set)
                             {
@@ -292,6 +295,38 @@ void re_utils::replace_plus_question_and_check_parentheses(string &re)
         re.append(save.top());
         save.pop();
     }
+}
+
+void re_utils::handle_dot(string &re)
+{
+    int start = 0;
+    int index = re.find_first_of('.', start);
+    string res;
+    while (index != re.npos)
+    {
+        res += re.substr(start, index - start);
+        if (index == 0 || re.at(index - 1) != '\\')
+        {
+            res += "(";
+            charset *_set = get_charset();
+            unordered_set<string> set;
+            _set->universe_set(set);
+            delete _set;
+            for (auto c: set)
+            {
+                res += c;
+                res += "|";
+            }
+            res.erase(res.length() - 1);
+            res += ")";
+        }
+        else
+            res += ".";
+        start = index + 1;
+        index = re.find_first_of('.', start);
+    }
+    res += re.substr(start);
+    re = res;
 }
 
 string re_utils::handle_bracket_espace(const string &c)

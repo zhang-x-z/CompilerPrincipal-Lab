@@ -20,6 +20,7 @@ void ascii_charset::universe_set(unordered_set<string> &set)
     set.clear();
     for (int i = 0; i < 128; i++)
     {
-        set.insert(string(1, (char)i));
+        string c = re_utils::espace_basic_symbol(string(1, (char)i));
+        set.insert(c);
     }
 }

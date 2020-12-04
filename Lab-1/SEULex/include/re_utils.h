@@ -14,6 +14,8 @@ public:
     static void replace_braces(string &, const unordered_map<string, string> &);
     static void replace_brackets(string &);
     static void replace_plus_question_and_check_parentheses(string &);
+    static void handle_dot(string &);
+    static void add_dot(string &);
     static string espace_basic_symbol(const string &);
     static bool is_basic_symbol(const string &);
     static void construct_stack(const string &, stack<string> &);
