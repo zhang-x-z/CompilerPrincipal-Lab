@@ -6,16 +6,16 @@
     </userDefinitions>
     <reDefinitions>
         <D>
-            "^我"
+            [a-z]
         </D>
         <DIG>
-            "static"
+            static
         </DIG>
     </reDefinitions>
     <rules>
         <rule>
             <re>
-                "if"
+                if
             </re>
             <action>
                 cout &lt;&lt; "我就试试" &lt;&lt; endl;
@@ -24,10 +24,10 @@
         </rule>
         <rule>
             <re>
-                "else"
+                {D}{D}+
             </re>
             <action>
-                return;
+                return 0;
             </action>
         </rule>
     </rules>

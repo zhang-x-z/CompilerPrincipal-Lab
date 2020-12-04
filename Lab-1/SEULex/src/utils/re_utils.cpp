@@ -7,19 +7,12 @@
 
 void re_utils::pre_process_re(string &re, const unordered_map<string, string> &map)
 {
-    cout << re << endl;
     replace_braces(re, map);
-    cout << re << endl;
     replace_brackets(re);
-    cout << re << endl;
     replace_plus_question_and_check_parentheses(re);
-    cout << re << endl;
     handle_dot(re);
-    cout << re << endl;
     add_dot(re);
-    cout << re << endl;
     handle_espace(re);
-    cout << re << endl;
 }
 
 void re_utils::replace_braces(string &re, const unordered_map<string, string> &map)
@@ -143,7 +136,6 @@ void re_utils::replace_brackets(string &re)
                                         while (_t <= nc)
                                         {
                                             string _tmp(1, _t);
-                                            // TODO: delete test cout
                                             char_set.insert(_tmp);
                                             _t += 1;
                                         }

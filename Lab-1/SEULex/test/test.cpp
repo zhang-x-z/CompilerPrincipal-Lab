@@ -48,23 +48,25 @@ void test_string_utils()
 void test_source_file()
 {
     source_file *file = source_file::get_instance();
-    vector<string> v = file->get_user_definitions();
-    for (auto line : v)
-    {
-        cout << line << endl;
-    }
+    // vector<string> v = file->get_user_definitions();
+    // for (auto line : v)
+    // {
+    //     cout << line << endl;
+    // }
 
-    string code = file->get_user_code();
-    cout << code;
+    // string code = file->get_user_code();
+    // cout << code;
 
-    cout << endl;
-    unordered_map<string, string> map = file->get_re_definitions();
-    cout << map["D"] << endl;
+    // cout << endl;
+    // unordered_map<string, string> map = file->get_re_definitions();
+    // cout << map["D"] << endl;
 
     vector<rule> rules = file->get_rules();
+    cout << rules.size() << endl;
     for (rule r : rules)
     {
         cout << r.get_pattern() << endl;
+        cout << r.get_actions().size() << endl;
         for (string a : r.get_actions())
         {
             cout << a << endl;
@@ -155,8 +157,8 @@ void test_utf8_string_iterator()
 void test_re_utils()
 {
     unordered_map<string, string> map;
-    map.insert(make_pair("D", "[a-z]*(d|b)+"));
-    string re = "(a|c)?{D}\\{";
+    map.insert(make_pair("哈哈", "[a-z]*(d|b)+好?"));
+    string re = "(我|你)?{哈哈}\\{";
     re_utils::pre_process_re(re, map);
     cout << re << endl;
 }
@@ -173,6 +175,6 @@ int main()
     //     bitset<8> set(s.at(i));
     //     cout << set << endl;
     // }
-    test_re_utils();
+    test_source_file();
     return 1;
 }
