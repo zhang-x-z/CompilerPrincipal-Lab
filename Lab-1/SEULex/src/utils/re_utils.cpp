@@ -572,7 +572,56 @@ void re_utils::construct_queue(const string &re, queue<string> &s)
     delete it;
 }
 
+// priority * > | = .
 void re_utils::infix_to_postfix(const string &re, queue<string> &a)
 {
-    
+    stack<string> opts;
+    queue<string> re_queue;
+    construct_queue(re, re_queue);
+
+    while (!re_queue.empty())
+    {
+        string cur = re_queue.front();
+        re_queue.pop();
+        if (cur != "*" && cur != "|" && cur != "." && cur != "(" && cur != ")")
+            a.push(cur);
+        else
+        {
+            if (cur == "*" || cur == "(")
+                opts.push(cur);
+            else if (cur == "|" || cur == ".")
+            {
+                while (!opts.empty() && (opts.top() == "*" || opts.top() == "|" || opts.top() == "."))
+                {
+                    a.push(opts.top());
+                    opts.pop();
+                }
+                opts.push(cur);
+            }
+            else if (cur == ")")
+            {
+                bool finded = false;
+                while (!opts.empty())
+                {
+                    string tmp = opts.top();
+                    opts.pop();
+                    if (tmp == "(")
+                    {
+                        finded = true;
+                        break;
+                    }
+                    else
+                        a.push(tmp);
+                }
+                if (!finded)
+                    throw runtime_error("Unclosed '()'.");
+            }
+        }
+    }
+
+    while (!opts.empty())
+    {
+        a.push(opts.top());
+        opts.pop();
+    }
 }

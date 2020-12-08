@@ -158,9 +158,21 @@ void test_re_utils()
 {
     unordered_map<string, string> map;
     map.insert(make_pair("哈哈", "[a-z]*(d|b)+好?"));
-    string re = "(我|你)?{哈哈}\\{";
+    string re = "(我|你)?{哈哈}\\|冷";
     re_utils::pre_process_re(re, map);
     cout << re << endl;
+}
+
+void test_re_infix_to_postfix()
+{
+    string re = "(a|b)*|b.c.\\.";
+    queue<string> a;
+    re_utils::infix_to_postfix(re, a);
+    while (!a.empty())
+    {
+        cout << a.front() << endl;
+        a.pop();
+    }
 }
 
 int main()
@@ -175,6 +187,6 @@ int main()
     //     bitset<8> set(s.at(i));
     //     cout << set << endl;
     // }
-    test_source_file();
+    test_re_infix_to_postfix();
     return 1;
 }
