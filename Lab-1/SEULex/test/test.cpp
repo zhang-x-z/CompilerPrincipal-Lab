@@ -48,23 +48,25 @@ void test_string_utils()
 void test_source_file()
 {
     source_file *file = source_file::get_instance();
-    vector<string> v = file->get_user_definitions();
-    for (auto line : v)
-    {
-        cout << line << endl;
-    }
+    // vector<string> v = file->get_user_definitions();
+    // for (auto line : v)
+    // {
+    //     cout << line << endl;
+    // }
 
-    string code = file->get_user_code();
-    cout << code;
+    // string code = file->get_user_code();
+    // cout << code;
 
-    cout << endl;
-    unordered_map<string, string> map = file->get_re_definitions();
-    cout << map["D"] << endl;
+    // cout << endl;
+    // unordered_map<string, string> map = file->get_re_definitions();
+    // cout << map["D"] << endl;
 
     vector<rule> rules = file->get_rules();
+    cout << rules.size() << endl;
     for (rule r : rules)
     {
         cout << r.get_pattern() << endl;
+        cout << r.get_actions().size() << endl;
         for (string a : r.get_actions())
         {
             cout << a << endl;
@@ -72,7 +74,7 @@ void test_source_file()
     }
 }
 
-void test_re_utils()
+void test_re_utils_part()
 {
     // unordered_map<string, string> map;
     // map.insert(make_pair("D", "(d|b)+"));
@@ -113,16 +115,32 @@ void test_re_utils()
     //re_utils::replace_plus_question_and_check_parentheses(re);
 
     re = ".";
-    re_utils::handle_dot(re);
-    cout << re << endl;
+    // re_utils::handle_dot(re);
+    // cout << re << endl;
 
     re = "(a|b|c).*";
-    re_utils::handle_dot(re);
-    cout << re << endl;
+    // re_utils::handle_dot(re);
+    // cout << re << endl;
 
     re = "(a|c)*\\..*";
-    re_utils::handle_dot(re);
+    //re_utils::handle_dot(re);
+    //cout << re << endl;
+
+    re = "(a|b)(c|d|e)*";
+    re_utils::add_dot(re);
     cout << re << endl;
+
+    re = "abcdef*(a|b)*";
+    re_utils::add_dot(re);
+    cout << re << endl;
+
+    re = "a\\*b(c|d)(e|f)*p";
+    re_utils::add_dot(re);
+    cout << re << endl;
+
+    re = "a\\b\\.\\\\\\t*\\((a|b)*\\n";
+    re_utils::handle_espace(re);
+    cout << re;
 }
 
 void test_utf8_string_iterator()
@@ -134,6 +152,15 @@ void test_utf8_string_iterator()
         string s = p->next();
         cout << s << endl;
     }
+}
+
+void test_re_utils()
+{
+    unordered_map<string, string> map;
+    map.insert(make_pair("哈哈", "[a-z]*(d|b)+好?"));
+    string re = "(我|你)?{哈哈}\\{";
+    re_utils::pre_process_re(re, map);
+    cout << re << endl;
 }
 
 int main()
@@ -148,6 +175,6 @@ int main()
     //     bitset<8> set(s.at(i));
     //     cout << set << endl;
     // }
-    test_re_utils();
+    test_source_file();
     return 1;
 }

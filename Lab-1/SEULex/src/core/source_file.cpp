@@ -1,6 +1,7 @@
 #include "source_file.h"
 #include "re_utils.h"
 #include "string_utils.h"
+#include <iostream>
 
 source_file *source_file::source = new source_file();
 
@@ -104,9 +105,16 @@ void source_file::parser_rules(XMLElement *p)
         }
         if (res.empty())
             throw runtime_error("In source file: " + config->get_source_file_loaction() + "\n<action> tag can not be empty. Line: " + to_string(action_ele->GetLineNum()));
-        //TODO: ADD TO RULES
+        try
+        {
+            re_utils::pre_process_re(line, re_definitions);
+        }
+        catch (const runtime_error &e)
+        {
+            throw runtime_error("In source file: " + config->get_source_file_loaction() + "Regular expression wrong.\n" + e.what() + "\nLine: " + to_string(re_ele->GetLineNum()));
+        }
         rules.push_back(rule(line, res));
-        e = e->FirstChildElement("rule");
+        e = e->NextSiblingElement("rule");
     }
 }
 
