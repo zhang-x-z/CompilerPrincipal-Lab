@@ -312,7 +312,7 @@ void re_utils::handle_dot(string &re)
             unordered_set<string> set;
             _set->universe_set(set);
             delete _set;
-            for (auto c: set)
+            for (auto c : set)
             {
                 res += c;
                 res += "|";
@@ -455,4 +455,9 @@ void re_utils::construct_queue(const string &re, queue<string> &s)
         }
     }
     delete it;
+}
+
+void re_utils::infix_to_postfix(const string &re, queue<string> &a)
+{
+    
 }

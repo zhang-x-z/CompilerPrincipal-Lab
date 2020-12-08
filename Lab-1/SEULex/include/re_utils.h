@@ -18,6 +18,7 @@ public:
     static void add_dot(string &);
     static string espace_basic_symbol(const string &);
     static bool is_basic_symbol(const string &);
+    static void infix_to_postfix(const string &, queue<string> &);
     static void construct_stack(const string &, stack<string> &);
     static void construct_queue(const string &, queue<string> &);
 
