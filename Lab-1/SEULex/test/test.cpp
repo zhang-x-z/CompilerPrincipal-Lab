@@ -183,6 +183,7 @@ void test_NFA()
 
 int main()
 {
+
     // XMLDocument doc;
     // doc.LoadFile("test.xml");
     // XMLElement *r = doc.FirstChildElement();
