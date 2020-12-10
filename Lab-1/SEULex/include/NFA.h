@@ -10,11 +10,14 @@ class NFA
 {
 public:
     NFA();
+    int get_start_state_id();
+    const rule &get_rule_by_id(int) const;
+    const NFAState &find_state_by_id(int) const;
 
 private:
     void construct_NFA();
     source_file *source;
-    map<string, rule> end_state;
+    map<int, rule> end_state;
     int start_state_id;
     unordered_map<int, NFAState> states;
 };

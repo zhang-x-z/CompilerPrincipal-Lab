@@ -5,6 +5,7 @@
 #include "re_utils.h"
 #include "string_iterator.h"
 #include "utf8_string_iterator.h"
+#include "NFA.h"
 #include <iostream>
 #include <string>
 #include <bitset>
@@ -175,6 +176,11 @@ void test_re_infix_to_postfix()
     }
 }
 
+void test_NFA()
+{
+    NFA nfa;
+}
+
 int main()
 {
     // XMLDocument doc;
@@ -187,6 +193,6 @@ int main()
     //     bitset<8> set(s.at(i));
     //     cout << set << endl;
     // }
-    test_re_infix_to_postfix();
+    test_NFA();
     return 1;
 }

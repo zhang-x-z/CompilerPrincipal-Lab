@@ -4,29 +4,14 @@
         #include &lt;iostream&gt;
         #define IF 1
     </userDefinitions>
-    <reDefinitions>
-        <D>
-            [a-z]
-        </D>
-        <DIG>
-            static
-        </DIG>
-    </reDefinitions>
+    <reDefinitions></reDefinitions>
     <rules>
         <rule>
             <re>
-                if
+                d(a|c)*b
             </re>
             <action>
                 cout &lt;&lt; "我就试试" &lt;&lt; endl;
-                return 0;
-            </action>
-        </rule>
-        <rule>
-            <re>
-                {D}{D}+
-            </re>
-            <action>
                 return 0;
             </action>
         </rule>

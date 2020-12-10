@@ -9,13 +9,12 @@ NFA::NFA() : source(source_file::get_instance())
 
 void NFA::construct_NFA()
 {
+    vector<int> start;
     int count = 0;
-    vector<rule> rules = source->get_rules();
-    for (rule r : rules)
+    for (rule r : source->get_rules())
     {
         queue<string> re_queue;
         re_utils::infix_to_postfix(r.get_pattern(), re_queue);
-        //TODO: construct NFA
         stack<int> save;
         while (!re_queue.empty())
         {
@@ -89,6 +88,21 @@ void NFA::construct_NFA()
                 count += 2;
             }
         }
-        //TODO: finish one rule
+        end_state.insert(make_pair(save.top(), r));
+        save.pop();
+        start.push_back(save.top());
     }
+
+    int last = start[0];
+    for (int i = 1; i < start.size(); i++)
+    {
+        int s = start[i];
+        NFAState t(count);
+        t.set_states_map("\\@", last);
+        t.set_states_map("\\@", s);
+        states.insert(make_pair(count, t));
+        last = count;
+        count++;
+    }
+    this->start_state_id = count - 1;
 }
