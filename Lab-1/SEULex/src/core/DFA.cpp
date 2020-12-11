@@ -17,6 +17,18 @@ int DFA::is_same_core(const unordered_multimap<int, unordered_set<int>> &c, cons
     return -1;
 }
 
+int DFA::is_same_state(const unordered_set<int> &set)
+{
+    for (auto s : states)
+    {
+        if (s.get_NFA_states() == set)
+        {
+            return s.get_id();
+        }
+    }
+    return -1;
+}
+
 void DFA::construct_DFA()
 {
     NFA nfa;
@@ -42,16 +54,38 @@ void DFA::construct_DFA()
     {
         int id = states_queue.front();
         states_queue.pop();
-        unordered_multimap<string, int> reaches;
-        unordered_set<string> edges;
-        nfa.can_reach(states.at(id).get_NFA_states(), reaches, edges);
-        for (string e : edges)
+        unordered_map<string, unordered_set<int>> reaches;
+        nfa.can_reach(states[id].get_NFA_states(), reaches);
+        for (auto edge : reaches)
         {
-            unordered_set<int> states_set;
-            auto _tmp = reaches.find(e);
-            for (int i = 0; i < reaches.count(e); i++, _tmp++)
-                states_set.insert(_tmp->second);
-            
+            int flag = is_same_core(cores, edge.second);
+            if (flag != -1)
+                states[id].set_edges(edge.first, flag);
+            else
+            {
+                unordered_set<int> closure;
+                nfa.find_epsilon_closure(edge.second, closure);
+                int _tmp_id = is_same_state(closure);
+                if (_tmp_id == -1)
+                {
+                    DFAState _tmp_state(count);
+                    _tmp_state.set_NFAStates(closure);
+                    end_id = nfa.is_contains_end(closure);
+                    if (end_id != -1)
+                    {
+                        end_states.insert(make_pair(count, nfa.get_rule_by_id(end_id)));
+                    }
+                    states.push_back(_tmp_state);
+                    states_queue.push(count);
+                    cores.insert(make_pair(count, edge.second));
+                    count++;
+                }
+                else
+                {
+                    states[id].set_edges(edge.first, _tmp_id);
+                    cores.insert(make_pair(_tmp_id, edge.second));
+                }
+            }
         }
     }
 }

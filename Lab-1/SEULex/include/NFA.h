@@ -12,7 +12,8 @@ public:
     NFA();
     int get_start_state_id() const;
     int is_contains_end(const unordered_set<int> &) const;
-    void can_reach(const unordered_set<int> &, unordered_multimap<string, int> &, unordered_set<string> &);
+    void can_reach(const unordered_set<int> &, unordered_map<string, unordered_set<int>> &);
+    void find_epsilon_closure(const unordered_set<int> &, unordered_set<int> &);
     const rule &get_rule_by_id(int) const;
     const NFAState &find_state_by_id(int) const;
     const unordered_map<int, NFAState> &get_all_states() const;

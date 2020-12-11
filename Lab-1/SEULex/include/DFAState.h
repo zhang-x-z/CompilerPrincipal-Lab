@@ -6,8 +6,10 @@ class DFAState
 {
 public:
     DFAState(int);
+    DFAState(const DFAState &);
     void set_edges(const string &, int);
     void set_NFAStates(int);
+    void set_NFAStates(const unordered_set<int> &);
     int get_id() const;
     unordered_set<int> &get_NFA_states();
     int find_DFAState_by_edge(const string &);

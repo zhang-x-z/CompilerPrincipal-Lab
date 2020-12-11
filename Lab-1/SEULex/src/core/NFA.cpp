@@ -34,15 +34,47 @@ int NFA::is_contains_end(const unordered_set<int> &set) const
     return -1;
 }
 
-// NOTE: have same pair
-void NFA::can_reach(const unordered_set<int> &s, unordered_multimap<string, int> &c, unordered_set<string> &edge)
+void NFA::find_epsilon_closure(const unordered_set<int> &core, unordered_set<int> &container)
+{
+    queue<int> q;
+    for (auto i : core)
+    {
+        container.insert(i);
+        q.push(i);
+    }
+
+    while (!q.empty())
+    {
+        int id = q.front();
+        q.pop();
+        unordered_set<int> _tmp;
+        states[id].find_epsilon_edge(_tmp);
+        for (auto i : _tmp)
+        {
+            if (container.find(i) == container.end())
+            {
+                container.insert(i);
+                q.push(i);
+            }
+        }
+    }
+}
+
+void NFA::can_reach(const unordered_set<int> &s, unordered_map<string, unordered_set<int>> &c)
 {
     for (auto i : s)
     {
         for (auto e : states.find(i)->second.get_states_map())
         {
-            edge.insert(e.first);
-            c.insert(e);
+            auto f = c.find(e.first);
+            if (f == c.end())
+            {
+                unordered_set<int> _tmp;
+                _tmp.insert(e.second);
+                c.insert(make_pair(e.first, _tmp));
+            }
+            else
+                f->second.insert(e.second);
         }
     }
 }
