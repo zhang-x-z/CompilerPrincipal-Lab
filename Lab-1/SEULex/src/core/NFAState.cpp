@@ -33,9 +33,10 @@ void NFAState::find_epsilon_edge(unordered_set<int> &set) const
 
 void NFAState::find_state_by_edge(const string &edge, unordered_set<int> &set) const
 {
-    auto all = states_map.find(edge);
-    while (all != states_map.end())
+    int len = states_map.count(edge);
+    auto beg = states_map.find(edge);
+    for (int i = 0; i < len; i++, beg++)
     {
-        set.insert(all->second);
+        set.insert(beg->second);
     }
 }

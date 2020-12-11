@@ -13,6 +13,6 @@ public:
     const vector<string> &get_actions();
 
 private:
-    string pattern;
+    string pattern = "";
     vector<string> actions;
 };

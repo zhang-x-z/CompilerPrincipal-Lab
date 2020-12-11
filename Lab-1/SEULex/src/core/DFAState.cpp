@@ -16,6 +16,11 @@ DFAState::DFAState(const DFAState &d)
     }
 }
 
+const unordered_map<string, int> &DFAState::get_all_edges() const
+{
+    return edges;
+}
+
 unordered_set<int> &DFAState::get_NFA_states()
 {
     return this->NFAStates;

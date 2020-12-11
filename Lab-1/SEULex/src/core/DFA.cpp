@@ -7,6 +7,21 @@ DFA::DFA()
     construct_DFA();
 }
 
+const vector<DFAState> &DFA::get_all_states() const
+{
+    return this->states;
+}
+
+const unordered_map<int, rule> &DFA::get_all_end_states() const
+{
+    return this->end_states;
+}
+
+const vector<int> &DFA::get_useful_states_id() const
+{
+    return this->useful_id;
+}
+
 int DFA::is_same_core(const unordered_multimap<int, unordered_set<int>> &c, const unordered_set<int> &s)
 {
     for (auto t : c)
@@ -42,7 +57,11 @@ void DFA::construct_DFA()
     int count = 1;
     DFAState first(0);
     states_queue.push(0);
-    nfa.find_state_by_id(nfa.get_start_state_id()).find_epsilon_edge(first.get_NFA_states());
+
+    unordered_set<int> _tmp_first_set;
+    _tmp_first_set.insert(nfa.get_start_state_id());
+    nfa.find_epsilon_closure(_tmp_first_set, first.get_NFA_states());
+
     int end_id = nfa.is_contains_end(first.get_NFA_states());
     if (end_id != -1)
     {
@@ -78,6 +97,7 @@ void DFA::construct_DFA()
                     states.push_back(_tmp_state);
                     states_queue.push(count);
                     cores.insert(make_pair(count, edge.second));
+                    states[id].set_edges(edge.first, count);
                     count++;
                 }
                 else
@@ -87,5 +107,14 @@ void DFA::construct_DFA()
                 }
             }
         }
+    }
+}
+
+//TODO: optimize DFA
+void DFA::optimization_DFA()
+{
+    for (int i = 0; i < states.size(); i++)
+    {
+        useful_id.push_back(i);
     }
 }

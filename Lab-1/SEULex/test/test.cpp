@@ -6,6 +6,7 @@
 #include "string_iterator.h"
 #include "utf8_string_iterator.h"
 #include "NFA.h"
+#include "DFA.h"
 #include <iostream>
 #include <string>
 #include <bitset>
@@ -194,6 +195,33 @@ void test_NFA()
     }
 }
 
+void test_DFA()
+{
+    DFA dfa;
+    int len = dfa.get_all_states().size();
+    for (int i = 0; i < len; i++)
+    {
+        cout << "--------------------" << endl;
+        cout << i << endl;
+        cout << "--------------------" << endl;
+        for (auto t : dfa.get_all_states().at(i).get_all_edges())
+        {
+            cout << t.first << endl;
+            cout << t.second << endl;
+        }
+        cout << "********************" << endl;
+    }
+
+    for (auto t : dfa.get_all_end_states())
+    {
+        cout << t.first << endl;
+        for (auto s : t.second.get_actions())
+        {
+            cout << s << endl;
+        }
+    }
+}
+
 int main()
 {
     // XMLDocument doc;
@@ -206,16 +234,16 @@ int main()
     //     bitset<8> set(s.at(i));
     //     cout << set << endl;
     // }
-    unordered_set<int> s;
-    s.insert(1);
-    s.insert(2);
-    s.insert(3);
-    unordered_set<int> p;
-    p.insert(3);
-    p.insert(2);
-    p.insert(1);
-    p.insert(1);
-    cout << (p == s) << endl;
-
+    // unordered_set<int> s;
+    // s.insert(1);
+    // s.insert(2);
+    // s.insert(3);
+    // unordered_set<int> p;
+    // p.insert(3);
+    // p.insert(2);
+    // p.insert(1);
+    // p.insert(1);
+    // cout << (p == s) << endl;
+    test_DFA();
     return 1;
 }

@@ -48,7 +48,7 @@ void NFA::find_epsilon_closure(const unordered_set<int> &core, unordered_set<int
         int id = q.front();
         q.pop();
         unordered_set<int> _tmp;
-        states[id].find_epsilon_edge(_tmp);
+        states.at(id).find_epsilon_edge(_tmp);
         for (auto i : _tmp)
         {
             if (container.find(i) == container.end())
@@ -66,6 +66,8 @@ void NFA::can_reach(const unordered_set<int> &s, unordered_map<string, unordered
     {
         for (auto e : states.find(i)->second.get_states_map())
         {
+            if (e.first == "\\@")
+                continue;
             auto f = c.find(e.first);
             if (f == c.end())
             {

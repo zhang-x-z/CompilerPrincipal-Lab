@@ -2,10 +2,10 @@
 
 rule::rule(const string &s, const vector<string> &v)
 {
-    pattern = s;
+    this->pattern = s;
     for (auto l : v)
     {
-        actions.push_back(l);
+        this->actions.push_back(l);
     }
 }
 

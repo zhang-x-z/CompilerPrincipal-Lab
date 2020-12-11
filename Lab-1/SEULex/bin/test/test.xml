@@ -8,7 +8,7 @@
     <rules>
         <rule>
             <re>
-                d(a|c)*b
+                a*b|c
             </re>
             <action>
                 cout &lt;&lt; "我就试试" &lt;&lt; endl;
