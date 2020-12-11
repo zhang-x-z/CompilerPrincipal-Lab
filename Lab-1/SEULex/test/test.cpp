@@ -179,11 +179,23 @@ void test_re_infix_to_postfix()
 void test_NFA()
 {
     NFA nfa;
+    cout << nfa.get_start_state_id() << endl;
+    for (auto a : nfa.get_all_states())
+    {
+        cout << "--------------------" << endl;
+        cout << a.first << endl;
+        cout << "--------------------" << endl;
+        for (auto t : a.second.get_states_map())
+        {
+            cout << t.first << endl;
+            cout << t.second << endl;
+        }
+        cout << "********************" << endl;
+    }
 }
 
 int main()
 {
-
     // XMLDocument doc;
     // doc.LoadFile("test.xml");
     // XMLElement *r = doc.FirstChildElement();

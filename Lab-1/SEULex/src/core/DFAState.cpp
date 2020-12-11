@@ -2,6 +2,11 @@
 
 DFAState::DFAState(int id) : id(id) {}
 
+unordered_set<int> &DFAState::get_NFA_states()
+{
+    return this->NFAStates;
+}
+
 void DFAState::set_edges(const string &s, int id)
 {
     this->edges.insert(make_pair(s, id));

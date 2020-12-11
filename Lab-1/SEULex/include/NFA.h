@@ -10,9 +10,11 @@ class NFA
 {
 public:
     NFA();
-    int get_start_state_id();
+    int get_start_state_id() const;
+    int is_contains_end(const unordered_set<int> &) const;
     const rule &get_rule_by_id(int) const;
     const NFAState &find_state_by_id(int) const;
+    const unordered_map<int, NFAState> &get_all_states() const;
 
 private:
     void construct_NFA();

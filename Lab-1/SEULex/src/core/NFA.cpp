@@ -7,6 +7,33 @@ NFA::NFA() : source(source_file::get_instance())
     construct_NFA();
 }
 
+const unordered_map<int, NFAState> &NFA::get_all_states() const
+{
+    return this->states;
+}
+
+const NFAState &NFA::find_state_by_id(int id) const
+{
+    return states.find(id)->second;
+}
+
+const rule &NFA::get_rule_by_id(int id) const
+{
+    return end_state.find(id)->second;
+}
+
+int NFA::is_contains_end(const unordered_set<int> &set) const
+{
+    for (auto t : end_state)
+    {
+        if (set.find(t.first) != set.end())
+        {
+            return t.first;
+        }
+    }
+    return -1;
+}
+
 void NFA::construct_NFA()
 {
     vector<int> start;
@@ -104,5 +131,10 @@ void NFA::construct_NFA()
         last = count;
         count++;
     }
-    this->start_state_id = count - 1;
+    this->start_state_id = last;
+}
+
+int NFA::get_start_state_id() const
+{
+    return this->start_state_id;
 }

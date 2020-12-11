@@ -11,7 +11,7 @@ NFAState::NFAState(const NFAState &s)
     }
 }
 
-int NFAState::get_id()
+int NFAState::get_id() const
 {
     return id;
 }
@@ -26,12 +26,12 @@ const unordered_multimap<string, int> &NFAState::get_states_map() const
     return states_map;
 }
 
-void NFAState::find_epsilon_edge(unordered_set<int> &set)
+void NFAState::find_epsilon_edge(unordered_set<int> &set) const
 {
     find_state_by_edge("\\@", set);
 }
 
-void NFAState::find_state_by_edge(const string &edge, unordered_set<int> &set)
+void NFAState::find_state_by_edge(const string &edge, unordered_set<int> &set) const
 {
     auto all = states_map.find(edge);
     while (all != states_map.end())
