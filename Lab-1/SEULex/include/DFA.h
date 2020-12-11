@@ -12,6 +12,7 @@ public:
 
 private:
     void construct_DFA();
+    int is_same_core(const unordered_multimap<int, unordered_set<int>> &, const unordered_set<int> &);
     unordered_map<int, rule> end_states;
     vector<DFAState> states;
 };

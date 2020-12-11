@@ -206,6 +206,16 @@ int main()
     //     bitset<8> set(s.at(i));
     //     cout << set << endl;
     // }
-    test_NFA();
+    unordered_set<int> s;
+    s.insert(1);
+    s.insert(2);
+    s.insert(3);
+    unordered_set<int> p;
+    p.insert(3);
+    p.insert(2);
+    p.insert(1);
+    p.insert(1);
+    cout << (p == s) << endl;
+
     return 1;
 }

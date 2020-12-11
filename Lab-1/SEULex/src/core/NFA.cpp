@@ -34,6 +34,19 @@ int NFA::is_contains_end(const unordered_set<int> &set) const
     return -1;
 }
 
+// NOTE: have same pair
+void NFA::can_reach(const unordered_set<int> &s, unordered_multimap<string, int> &c, unordered_set<string> &edge)
+{
+    for (auto i : s)
+    {
+        for (auto e : states.find(i)->second.get_states_map())
+        {
+            edge.insert(e.first);
+            c.insert(e);
+        }
+    }
+}
+
 void NFA::construct_NFA()
 {
     vector<int> start;
