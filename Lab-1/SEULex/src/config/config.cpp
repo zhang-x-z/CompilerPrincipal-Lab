@@ -8,6 +8,7 @@ Config::Config()
 {
     encoding = UTF8;
     charset = ASCII;
+    buffer_size = 50;
     ifstream in("config.properties");
     if (!in)
     {
@@ -28,6 +29,8 @@ Config::Config()
         if (options == "buffer_size")
         {
             buffer_size = atoi(value.c_str());
+            if (buffer_size < 50)
+                buffer_size = 50;
         }
         else if (options == "source_file_location")
         {

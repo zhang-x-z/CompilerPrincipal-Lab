@@ -17,11 +17,6 @@ const unordered_map<int, rule> &DFA::get_all_end_states() const
     return this->end_states;
 }
 
-const vector<int> &DFA::get_useful_states_id() const
-{
-    return this->useful_id;
-}
-
 int DFA::is_same_core(const unordered_multimap<int, unordered_set<int>> &c, const unordered_set<int> &s)
 {
     for (auto t : c)
@@ -107,14 +102,5 @@ void DFA::construct_DFA()
                 }
             }
         }
-    }
-}
-
-//TODO: optimize DFA
-void DFA::optimization_DFA()
-{
-    for (int i = 0; i < states.size(); i++)
-    {
-        useful_id.push_back(i);
     }
 }

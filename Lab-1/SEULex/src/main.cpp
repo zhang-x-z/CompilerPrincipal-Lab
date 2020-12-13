@@ -1,9 +1,8 @@
-#include <iostream>
-#include "tinyxml2.h"
-using namespace std;
-using namespace tinyxml2;
+#include "generator.h"
 
 int main()
 {
+    generator ge;
+    ge.generate();
     return 1;
 }

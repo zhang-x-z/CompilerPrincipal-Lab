@@ -7,11 +7,19 @@
 #include "utf8_string_iterator.h"
 #include "NFA.h"
 #include "DFA.h"
+#include "generator.h"
+using namespace std;
+using namespace tinyxml2;
 #include <iostream>
 #include <string>
 #include <bitset>
-using namespace std;
-using namespace tinyxml2;
+#include "string_iterator.h"
+void c();
+
+void c()
+{
+    cout << endl;
+}
 
 void test_tinyxml2()
 {
@@ -222,6 +230,12 @@ void test_DFA()
     }
 }
 
+void test_generator()
+{
+    generator ge;
+    ge.generate();
+}
+
 int main()
 {
     // XMLDocument doc;
@@ -244,6 +258,6 @@ int main()
     // p.insert(1);
     // p.insert(1);
     // cout << (p == s) << endl;
-    test_DFA();
+    test_generator();
     return 1;
 }

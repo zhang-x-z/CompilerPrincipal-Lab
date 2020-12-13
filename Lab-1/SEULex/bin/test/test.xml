@@ -1,18 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Lex>
     <userDefinitions>
-        #include &lt;iostream&gt;
         #define IF 1
     </userDefinitions>
     <reDefinitions></reDefinitions>
     <rules>
         <rule>
             <re>
-                a*b|c
+                a|b
             </re>
             <action>
-                cout &lt;&lt; "我就试试" &lt;&lt; endl;
-                return 0;
+                cout &lt;&lt; "a或b" &lt;&lt; endl;
+            </action>
+        </rule>
+        <rule>
+            <re>
+                c|d
+            </re>
+            <action>
+                cout &lt;&lt; "c或d" &lt;&lt; endl;
             </action>
         </rule>
     </rules>
