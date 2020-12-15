@@ -11,7 +11,7 @@
 4. charset: 指定字符集（不配置默认ASCII）
 ##### xml文件说明
 1. 根节点必须为&lt;Lex&gt;
-2. &lt;userDefinitions&gt;为用户自定义变量常量和头文件（）
+2. &lt;userDefinitions&gt;为用户自定义变量常量和头文件
 > 注意：生成的文件中已经包含<iostream> <vector> <unordered_set> <unordered_map> <stdexcept> 和 using namespace std
 > 定义的变量不要包括lex_buffer, lex_word, len与cur_index
 > 定义的函数不要包括read(int), read_next(string)与yylex()（当然还有main!）
