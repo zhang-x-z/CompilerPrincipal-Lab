@@ -1,31 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Lex>
     <userDefinitions>
-        #define IF 1
     </userDefinitions>
-    <reDefinitions></reDefinitions>
+    <reDefinitions>
+        <letter>
+            [a-zA-Z]
+        </letter>
+        <digit>
+            [0-9]
+        </digit>
+        <space>
+            [\r\t \n]
+        </space>
+    </reDefinitions>
     <rules>
         <rule>
             <re>
-                a|b
+                \+
             </re>
             <action>
-                cout &lt;&lt; "a或b" &lt;&lt; endl;
+                cout &lt;&lt; "PLUS" &lt;&lt; endl;
             </action>
         </rule>
         <rule>
             <re>
-                c|d
+                -
             </re>
             <action>
-                cout &lt;&lt; "c或d" &lt;&lt; endl;
+                cout &lt;&lt; "MINUS" &lt;&lt; endl;
+            </action>
+        </rule>
+        <rule>
+            <re>
+                \*
+            </re>
+            <action>
+                cout &lt;&lt; "MULTI" &lt;&lt; endl;
+            </action>
+        </rule>
+        <rule>
+            <re>
+                ==
+            </re>
+            <action>
+                cout &lt;&lt; "EQUAL" &lt;&lt; endl;
+            </action>
+        </rule>
+        <rule>
+            <re>
+                /
+            </re>
+            <action>
+                cout &lt;&lt; "DIVIDE" &lt;&lt; endl;
+            </action>
+        </rule>
+        <rule>
+            <re>
+                \(|\)
+            </re>
+            <action>
+                cout &lt;&lt; "BRACE" &lt;&lt; endl;
+            </action>
+        </rule>
+        <rule>
+            <re>
+                {space}
+            </re>
+            <action>
+                cout &lt;&lt; "SPACE" &lt;&lt; endl;
+            </action>
+        </rule>
+        <rule>
+            <re>
+                [1-9]{digit}*|0
+            </re>
+            <action>
+                cout &lt;&lt; "INT" &lt;&lt; endl;
+            </action>
+        </rule>
+        <rule>
+            <re>
+                [1-9]{digit}*\.{digit}*|0\.{digit}*
+            </re>
+            <action>
+                cout &lt;&lt; "FLOAT" &lt;&lt; endl;
+            </action>
+        </rule>
+        <rule>
+            <re>
+                ({letter}|_)({letter}|{digit}|_)*
+            </re>
+            <action>
+                cout &lt;&lt; "ID" &lt;&lt; endl;
+            </action>
+        </rule>
+        <rule>
+            <re>
+                =
+            </re>
+            <action>
+                cout &lt;&lt; "ASSIGN" &lt;&lt; endl;
             </action>
         </rule>
     </rules>
     <userCode>
-        void print_co()
-        {
-            cout &lt;&lt; endl;
-        }
     </userCode>
 </Lex>

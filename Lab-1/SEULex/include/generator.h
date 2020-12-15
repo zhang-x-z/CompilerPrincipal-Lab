@@ -1,5 +1,6 @@
 #pragma once
 #include "DFA.h"
+#include "source_file.h"
 #include "code_data.h"
 
 class generator

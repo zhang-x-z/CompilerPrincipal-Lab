@@ -57,3 +57,27 @@ void string_utils::split(const string &s, vector<string> &tokens, const string &
         pos = s.find_first_of(delimiters, lastPos);
     }
 }
+
+string string_utils::change_to_printable_string(const string &s)
+{
+    if (s == "\t")
+        return "\\t";
+    else if (s == "\n")
+        return "\\n";
+    else if (s == "\r")
+        return "\\r";
+    else if (s == "\f")
+        return "\\f";
+    else if (s == "\v")
+        return "\\v";
+    else if (s == "\"")
+        return "\\\"";
+    else
+    {
+        if (s.length() > 1 && s.at(0) == '\\')
+        {
+            return "\\" + s;
+        }
+    }
+    return s;
+}

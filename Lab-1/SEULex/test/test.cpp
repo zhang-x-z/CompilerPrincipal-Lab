@@ -286,6 +286,6 @@ int main()
     // p.insert(1);
     // p.insert(1);
     // cout << (p == s) << endl;
-    test_DFA();
+    test_generator();
     return 1;
 }
