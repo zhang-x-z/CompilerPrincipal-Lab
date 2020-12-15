@@ -53,6 +53,47 @@ void DFAO::construct_DFAO()
                 break;
         }
     }
+    vector<int> states_state(dfa.get_all_states().size(), -1);
+    vector<int> reper(count_set, -1);
+    unordered_set<int> _tmp_set;
+    int count = 0;
+    for (int i = 0; i < states_belong.size(); i++)
+    {
+        if (_tmp_set.find(states_belong[i]) == _tmp_set.end())
+        {
+            _tmp_set.insert(states_belong[i]);
+            states_state[i] = count;
+            reper[states_belong[i]] = i;
+            count++;
+        }
+        if (_tmp_set.size() == count_set)
+            break;
+    }
+
+    for (int i = 0; i < dfa.get_all_states().size(); i++)
+    {
+        if (states_state[i] == -1)
+            continue;
+        DFAState _tmp_state(states_state[i]);
+        for (auto edge : dfa.get_all_states().at(i).get_all_edges())
+        {
+            int des = states_state[reper[states_belong[edge.second]]];
+            _tmp_state.set_edges(edge.first, des);
+        }
+        all_states.push_back(_tmp_state);
+    }
+
+    // process end state (previous operation has ensure the reperesnt of one set is the state which has smallest id)
+    unordered_set<int> save_processed;
+    for (auto i : dfa.get_all_end_states())
+    {
+        int set_index = states_belong[i.first];
+        if (save_processed.find(set_index) == save_processed.end())
+        {
+            save_processed.insert(set_index);
+            all_end.insert(make_pair(states_state[reper[set_index]], i.second));
+        }
+    }
 }
 
 const vector<DFAState> &DFAO::get_all_states()

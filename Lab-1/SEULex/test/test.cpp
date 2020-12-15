@@ -8,6 +8,7 @@
 #include "NFA.h"
 #include "DFA.h"
 #include "generator.h"
+#include "DFAO.h"
 using namespace std;
 using namespace tinyxml2;
 #include <iostream>
@@ -236,6 +237,33 @@ void test_generator()
     ge.generate();
 }
 
+void test_DFAO()
+{
+    DFAO dfa;
+    int len = dfa.get_all_states().size();
+    for (int i = 0; i < len; i++)
+    {
+        cout << "--------------------" << endl;
+        cout << i << endl;
+        cout << "--------------------" << endl;
+        for (auto t : dfa.get_all_states().at(i).get_all_edges())
+        {
+            cout << t.first << endl;
+            cout << t.second << endl;
+        }
+        cout << "********************" << endl;
+    }
+
+    for (auto t : dfa.get_all_end_states())
+    {
+        cout << t.first << endl;
+        for (auto s : t.second.get_actions())
+        {
+            cout << s << endl;
+        }
+    }
+}
+
 int main()
 {
     // XMLDocument doc;
@@ -258,6 +286,6 @@ int main()
     // p.insert(1);
     // p.insert(1);
     // cout << (p == s) << endl;
-    test_generator();
+    test_DFA();
     return 1;
 }
