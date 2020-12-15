@@ -1,4 +1,4 @@
-#### SEU Lex
+### SEU Lex
 - Linux环境下开发，编译器选择clang++
 ##### 使用说明
 1. 必须在与可执行程序同目录下有config.properties配置文件
@@ -10,18 +10,18 @@
 3. encoding: 要解析的代码文件的编码（不配置默认UTF8）
 4. charset: 指定字符集（不配置默认ASCII）
 ##### xml文件说明
-1. 根节点必须为<Lex>
-2. <userDefinitions>为用户自定义变量常量和头文件（）
+1. 根节点必须为&lt;Lex&gt;
+2. &lt;userDefinitions&gt;为用户自定义变量常量和头文件（）
 > 注意：生成的文件中已经包含<iostream> <vector> <unordered_set> <unordered_map> <stdexcept> 和 using namespace std
 > 定义的变量不要包括lex_buffer, lex_word, len与cur_index
 > 定义的函数不要包括read(int), read_next(string)与yylex()（当然还有main!）
-3. <reDefinitions>为正规表达式定义，支持分层定义, 该标签下可含有多个标签，每个标签的名字为该正规表达式的名字，标签的内容为正规表达式
-4. <rules>为识别规则部分
-    - 该部分下可含有多个<rule>标签
-        - 每个<rule>标签含有一个<re>标签和一个<action>标签
-            - <re>标签为正规表达式
-            - <action>标签为要执行的代码
-5. <userCode>为用户子程序部分，会放到生成的源文件的最后
+3. &lt;reDefinitions&gt;为正规表达式定义，支持分层定义, 该标签下可含有多个标签，每个标签的名字为该正规表达式的名字，标签的内容为正规表达式
+4. &lt;rules&gt;为识别规则部分
+    - 该部分下可含有多个&lt;rule&gt;标签
+        - 每个&lt;rule&gt;标签含有一个&lt;re&gt;标签和一个&lt;action&gt;标签
+            - &lt;re&gt;标签为正规表达式
+            - &lt;action&gt;标签为要执行的代码
+5. &lt;userCode&gt;为用户子程序部分，会放到生成的源文件的最后
 ##### Regular Experssion
 - 不支持^ 和 $
 - 关于转义
