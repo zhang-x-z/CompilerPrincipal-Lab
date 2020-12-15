@@ -10,10 +10,11 @@ void DFAO::construct_DFAO()
 {
     DFA dfa;
     vector<int> states_belong(dfa.get_all_states().size(), 0);
-    int count_set = 2;
+    int count_set = 1;
     for (auto i : dfa.get_all_end_states())
     {
-        states_belong[i.first] = 1;
+        states_belong[i.first] = count_set;
+        count_set++;
     }
     bool flag = true;
     while (flag)
@@ -29,26 +30,45 @@ void DFAO::construct_DFAO()
                 first = j;
                 break;
             }
-            for (auto edge : dfa.get_all_states().at(first).get_all_edges())
+
+            if (dfa.get_all_states().at(first).get_all_edges().size() == 0)
             {
                 for (int left = first + 1; left < states_belong.size(); left++)
                 {
                     if (states_belong[left] != i)
                         continue;
-                    const DFAState *cur = &dfa.get_all_states().at(left);
-                    auto find = cur->get_all_edges().find(edge.first);
-                    if ((find == cur->get_all_edges().end()) || (states_belong[edge.second] != states_belong[find->second]))
+                    if (dfa.get_all_states().at(left).get_all_edges().size() != 0)
                     {
                         states_belong[left] = count_set;
                         flag = true;
                     }
                 }
-                if (flag)
+                count_set++;
+            }
+            else
+            {
+                for (auto edge : dfa.get_all_states().at(first).get_all_edges())
                 {
-                    count_set++;
-                    break;
+                    for (int left = first + 1; left < states_belong.size(); left++)
+                    {
+                        if (states_belong[left] != i)
+                            continue;
+                        const DFAState *cur = &dfa.get_all_states().at(left);
+                        auto find = cur->get_all_edges().find(edge.first);
+                        if ((find == cur->get_all_edges().end()) || (states_belong[edge.second] != states_belong[find->second]))
+                        {
+                            states_belong[left] = count_set;
+                            flag = true;
+                        }
+                    }
+                    if (flag)
+                    {
+                        count_set++;
+                        break;
+                    }
                 }
             }
+
             if (flag)
                 break;
         }
@@ -83,16 +103,10 @@ void DFAO::construct_DFAO()
         all_states.push_back(_tmp_state);
     }
 
-    // process end state (previous operation has ensure the reperesnt of one set is the state which has smallest id)
-    unordered_set<int> save_processed;
     for (auto i : dfa.get_all_end_states())
     {
         int set_index = states_belong[i.first];
-        if (save_processed.find(set_index) == save_processed.end())
-        {
-            save_processed.insert(set_index);
-            all_end.insert(make_pair(states_state[reper[set_index]], i.second));
-        }
+        all_end.insert(make_pair(states_state[reper[set_index]], i.second));
     }
 }
 

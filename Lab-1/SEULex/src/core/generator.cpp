@@ -1,5 +1,6 @@
 #include "generator.h"
 #include "config.h"
+#include "string_utils.h"
 #include <fstream>
 
 void generator::append_init()
@@ -16,7 +17,7 @@ void generator::append_init()
             init_code.append("\tuse.clear();\n");
             for (auto t : i.get_all_edges())
             {
-                init_code.append("\tuse.insert(make_pair(\"" + t.first + "\", " + to_string(t.second) + "));\n");
+                init_code.append("\tuse.insert(make_pair(\"" + string_utils::change_to_printable_string(t.first) + "\", " + to_string(t.second) + "));\n");
             }
             init_code.append("\tthis->states.push_back(use);\n");
         }
