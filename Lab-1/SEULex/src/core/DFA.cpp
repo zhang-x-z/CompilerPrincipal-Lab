@@ -5,6 +5,12 @@
 DFA::DFA()
 {
     construct_DFA();
+    start = 0;
+}
+
+int DFA::get_start_id() const
+{
+    return start;
 }
 
 const vector<DFAState> &DFA::get_all_states() const

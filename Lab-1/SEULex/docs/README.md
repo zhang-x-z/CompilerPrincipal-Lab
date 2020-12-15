@@ -1,6 +1,27 @@
 #### SEU Lex
 - Linux环境下开发，编译器选择clang++
-- 对源文件要求：LF以及UTF8
+##### 使用说明
+1. 必须在与可执行程序同目录下有config.properties配置文件
+2. 使用xml文件表示用户的输入
+3. 可下载源码利用cmake和clang++(或者g++)进行编译，在/bin下生成的SEULex为可执行程序
+##### config.properties可配置项
+1. buffer_size: 生成的可执行程序一次性读入源代码文件的*字节数*（最低为50，可不配置，不配置为50）
+2. source_file_location: xml文件位置（必须）
+3. encoding: 要解析的代码文件的编码（不配置默认UTF8）
+4. charset: 指定字符集（不配置默认ASCII）
+##### xml文件说明
+1. 根节点必须为<Lex>
+2. <userDefinitions>为用户自定义变量常量和头文件（）
+> 注意：生成的文件中已经包含<iostream> <vector> <unordered_set> <unordered_map> <stdexcept> 和 using namespace std
+> 定义的变量不要包括lex_buffer, lex_word, len与cur_index
+> 定义的函数不要包括read(int), read_next(string)与yylex()（当然还有main!）
+3. <reDefinitions>为正规表达式定义，支持分层定义, 该标签下可含有多个标签，每个标签的名字为该正规表达式的名字，标签的内容为正规表达式
+4. <rules>为识别规则部分
+    - 该部分下可含有多个<rule>标签
+        - 每个<rule>标签含有一个<re>标签和一个<action>标签
+            - <re>标签为正规表达式
+            - <action>标签为要执行的代码
+5. <userCode>为用户子程序部分，会放到生成的源文件的最后
 ##### Regular Experssion
 - 不支持^ 和 $
 - 关于转义
@@ -26,3 +47,7 @@
     - (后, )前不加点 ('(.', '.)')
     - |前后不加点
     - 加点情况：char . (; char . char; ).(; ).char; *.(; *.char;
+##### 已知缺陷
+- xml文件中对正则的定义空格不能放到首部或者尾部，会被处理字符串的函数trim处理掉
+- 目前仅支持UTF8编码和ASCII字符集，不过该程序可扩展处理更多字符集和编码
+- xml文件和配置文件仅支持UTF8编码和LF换行符（或许支持CRLF，但可能会有bug）

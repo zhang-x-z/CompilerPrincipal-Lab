@@ -76,7 +76,7 @@ string string_utils::change_to_printable_string(const string &s)
     {
         if (s.length() > 1 && s.at(0) == '\\')
         {
-            return "\\" + s;
+            return s.substr(1, s.length() - 1);
         }
     }
     return s;

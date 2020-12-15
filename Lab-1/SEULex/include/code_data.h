@@ -21,12 +21,12 @@ class DFA\n\
 public:\n\
     DFA()\n\
     {\n\
-        current_state = 0;\n\
         init();\n\
+        current_state = start;\n\
     }\n\
     void restart()\n\
     {\n\
-        current_state = 0;\n\
+        current_state = start;\n\
     }\n\
     bool next(const string &edge)\n\
     {\n\
@@ -44,6 +44,7 @@ public:\n\
 \n\
 private:\n\
     int current_state;\n\
+    int start;\n\
     unordered_set<int> end_states;\n\
     vector<unordered_map<string, int>> states;\n\
     void init();\n\

@@ -17,12 +17,12 @@ class DFA
 public:
     DFA()
     {
-        current_state = 0;
         init();
+        current_state = start;
     }
     void restart()
     {
-        current_state = 0;
+        current_state = start;
     }
     bool next(const string &edge)
     {
@@ -40,6 +40,7 @@ public:
 
 private:
     int current_state;
+    int start;
     unordered_set<int> end_states;
     vector<unordered_map<string, int>> states;
     void init();
@@ -154,6 +155,7 @@ void end2()
 
 void DFA::init()
 {
+    this->start = 0;
     unordered_map<string, int> m;
     m.insert(make_pair("a", 1));
     m.insert(make_pair("b", 2));

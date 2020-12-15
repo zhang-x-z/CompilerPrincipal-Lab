@@ -1,5 +1,5 @@
 #pragma once
-#include "DFA.h"
+#include "DFAO.h"
 #include "source_file.h"
 #include "code_data.h"
 
@@ -14,6 +14,6 @@ private:
     void append_user_def();
     void append_init();
     void append_end_action();
-    DFA dfa;
+    DFAO dfa;
     string code;
 };

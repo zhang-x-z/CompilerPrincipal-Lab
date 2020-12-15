@@ -1,33 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Lex>
-    <userDefinitions>
-    </userDefinitions>
+    <userDefinitions></userDefinitions>
     <reDefinitions>
-        <letter>
-            [a-zA-Z]
-        </letter>
         <digit>
             [0-9]
         </digit>
         <space>
             [\r\t \n]
         </space>
+        <letter>
+            [a-zA-Z]
+        </letter>
     </reDefinitions>
     <rules>
+        <rule>
+            <re>
+                [1-9]{digit}*\.{digit}*|(0\.{digit}*)
+            </re>
+            <action>
+                cout &lt;&lt; "FLOAT" &lt;&lt; endl;
+            </action>
+        </rule>
+        <rule>
+            <re>
+                [1-9]{digit}*|0
+            </re>
+            <action>
+                cout &lt;&lt; "INT" &lt;&lt; endl;
+            </action>
+        </rule>
+        <rule>
+            <re>
+                {space}
+            </re>
+            <action>
+                cout &lt;&lt; "SPACE" &lt;&lt; endl;
+            </action>
+        </rule>
+        <rule>
+            <re>
+                (_|{letter})(_|{letter}|{digit})*
+            </re>
+            <action>
+                cout &lt;&lt; "ID" &lt;&lt; endl;
+            </action>
+        </rule>
         <rule>
             <re>
                 \+
             </re>
             <action>
                 cout &lt;&lt; "PLUS" &lt;&lt; endl;
-            </action>
-        </rule>
-        <rule>
-            <re>
-                -
-            </re>
-            <action>
-                cout &lt;&lt; "MINUS" &lt;&lt; endl;
             </action>
         </rule>
         <rule>
@@ -40,10 +63,10 @@
         </rule>
         <rule>
             <re>
-                ==
+                -
             </re>
             <action>
-                cout &lt;&lt; "EQUAL" &lt;&lt; endl;
+                cout &lt;&lt; "SUB" &lt;&lt; endl;
             </action>
         </rule>
         <rule>
@@ -59,39 +82,7 @@
                 \(|\)
             </re>
             <action>
-                cout &lt;&lt; "BRACE" &lt;&lt; endl;
-            </action>
-        </rule>
-        <rule>
-            <re>
-                {space}
-            </re>
-            <action>
-                cout &lt;&lt; "SPACE" &lt;&lt; endl;
-            </action>
-        </rule>
-        <rule>
-            <re>
-                [1-9]{digit}*|0
-            </re>
-            <action>
-                cout &lt;&lt; "INT" &lt;&lt; endl;
-            </action>
-        </rule>
-        <rule>
-            <re>
-                [1-9]{digit}*\.{digit}*|0\.{digit}*
-            </re>
-            <action>
-                cout &lt;&lt; "FLOAT" &lt;&lt; endl;
-            </action>
-        </rule>
-        <rule>
-            <re>
-                ({letter}|_)({letter}|{digit}|_)*
-            </re>
-            <action>
-                cout &lt;&lt; "ID" &lt;&lt; endl;
+                cout &lt;&lt; "SMALL BRACKET" &lt;&lt; endl;
             </action>
         </rule>
         <rule>
@@ -102,7 +93,14 @@
                 cout &lt;&lt; "ASSIGN" &lt;&lt; endl;
             </action>
         </rule>
+        <rule>
+            <re>
+                ==
+            </re>
+            <action>
+                cout &lt;&lt; "EUQAL" &lt;&lt; endl;
+            </action>
+        </rule>
     </rules>
-    <userCode>
-    </userCode>
+    <userCode></userCode>
 </Lex>

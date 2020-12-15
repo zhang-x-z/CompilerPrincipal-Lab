@@ -6,6 +6,7 @@
 void generator::append_init()
 {
     string init_code = "void DFA::init()\n{\n";
+    init_code.append("\tthis->start = " + to_string(dfa.get_start_id()) + ";\n");
     init_code.append("\tunordered_map<string, int> empty;\n");
     init_code.append("\tunordered_map<string, int> use;\n");
     for (auto i : dfa.get_all_states())

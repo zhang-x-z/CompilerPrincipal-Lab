@@ -9,105 +9,135 @@ DFAO::DFAO()
 void DFAO::construct_DFAO()
 {
     DFA dfa;
-    vector<int> states_belong(dfa.get_all_states().size(), 0);
-    int count_set = 1;
-    for (auto i : dfa.get_all_end_states())
+    vector<unordered_set<int>> set_map;
+    vector<int> states_belong(dfa.get_all_states().size());
+    set_map.push_back(unordered_set<int>{});
+    int set_num = 1;
+    for (auto i : dfa.get_all_states())
     {
-        states_belong[i.first] = count_set;
-        count_set++;
+        if (dfa.get_all_end_states().find(i.get_id()) == dfa.get_all_end_states().end())
+        {
+            states_belong[i.get_id()] = 0;
+            set_map[0].insert(i.get_id());
+        }
+        else
+        {
+            set_map.push_back(unordered_set<int>{i.get_id()});
+            states_belong[i.get_id()] = set_num;
+            set_num++;
+        }
     }
+
+    // all the states are end state
+    if (set_map[0].size() == 0)
+    {
+        for (auto i : dfa.get_all_states())
+        {
+            DFAState _tmp(i.get_id());
+            for (auto e : i.get_all_edges())
+            {
+                _tmp.set_edges(e.first, e.second);
+            }
+            all_states.push_back(_tmp);
+        }
+
+        for (auto i : dfa.get_all_end_states())
+        {
+            all_end.insert(i);
+        }
+        return;
+    }
+
     bool flag = true;
     while (flag)
     {
         flag = false;
-        for (int i = 0; i < count_set; i++)
+        //pick one set
+        unordered_set<int> new_set;
+        int splited = -1;
+        for (int set_index = 0; set_index < set_num; set_index++)
         {
-            int first = -1;
-            for (int j = 0; j < states_belong.size(); j++)
+            //this set doesn't have element or has only one element
+            if (set_map[set_index].size() <= 1)
+                continue;
+            //pick one state in this set
+            unordered_set<int>::iterator stand_id = set_map[set_index].begin();
+            const DFAState *stand = &dfa.get_all_states().at(*stand_id);
+            // this state doesn't have any edge
+            if (stand->get_all_edges().size() == 0)
             {
-                if (states_belong[j] != i)
-                    continue;
-                first = j;
-                break;
-            }
-
-            if (dfa.get_all_states().at(first).get_all_edges().size() == 0)
-            {
-                for (int left = first + 1; left < states_belong.size(); left++)
+                unordered_set<int>::iterator find = set_map[set_index].begin();
+                find++;
+                while (find != set_map[set_index].end())
                 {
-                    if (states_belong[left] != i)
-                        continue;
-                    if (dfa.get_all_states().at(left).get_all_edges().size() != 0)
+                    if (dfa.get_all_states().at(*find).get_all_edges().size() != 0)
                     {
-                        states_belong[left] = count_set;
+                        new_set.insert(*find);
                         flag = true;
                     }
+                    find++;
                 }
-                count_set++;
             }
             else
             {
-                for (auto edge : dfa.get_all_states().at(first).get_all_edges())
+                for (auto edge : stand->get_all_edges())
                 {
-                    for (int left = first + 1; left < states_belong.size(); left++)
+                    unordered_set<int>::iterator it = set_map[set_index].begin();
+                    it++;
+                    while (it != set_map[set_index].end())
                     {
-                        if (states_belong[left] != i)
-                            continue;
-                        const DFAState *cur = &dfa.get_all_states().at(left);
-                        auto find = cur->get_all_edges().find(edge.first);
-                        if ((find == cur->get_all_edges().end()) || (states_belong[edge.second] != states_belong[find->second]))
+                        const DFAState *_tmp = &dfa.get_all_states().at(*it);
+                        if (_tmp->get_all_edges().find(edge.first) == _tmp->get_all_edges().end() || states_belong[_tmp->get_all_edges().find(edge.first)->second] != states_belong[edge.second])
                         {
-                            states_belong[left] = count_set;
+                            new_set.insert(*it);
                             flag = true;
                         }
+                        it++;
                     }
                     if (flag)
-                    {
-                        count_set++;
                         break;
-                    }
                 }
             }
-
             if (flag)
+            {
+                splited = set_index;
                 break;
+            }
         }
-    }
-    vector<int> states_state(dfa.get_all_states().size(), -1);
-    vector<int> reper(count_set, -1);
-    unordered_set<int> _tmp_set;
-    int count = 0;
-    for (int i = 0; i < states_belong.size(); i++)
-    {
-        if (_tmp_set.find(states_belong[i]) == _tmp_set.end())
+
+        if (flag)
         {
-            _tmp_set.insert(states_belong[i]);
-            states_state[i] = count;
-            reper[states_belong[i]] = i;
-            count++;
+            for (const auto &i : new_set)
+            {
+                set_map[splited].erase(i);
+                states_belong[i] = set_num;
+            }
+            set_map.push_back(new_set);
+            set_num++;
         }
-        if (_tmp_set.size() == count_set)
-            break;
     }
 
-    for (int i = 0; i < dfa.get_all_states().size(); i++)
+    this->start = states_belong[0];
+    for (int i = 0; i < set_map.size(); i++)
     {
-        if (states_state[i] == -1)
-            continue;
-        DFAState _tmp_state(states_state[i]);
-        for (auto edge : dfa.get_all_states().at(i).get_all_edges())
+        DFAState _tmp(i);
+        const DFAState *e = &dfa.get_all_states().at(*set_map[i].begin());
+        for (const auto &edge : e->get_all_edges())
         {
-            int des = states_state[reper[states_belong[edge.second]]];
-            _tmp_state.set_edges(edge.first, des);
+            _tmp.set_edges(edge.first, states_belong[edge.second]);
         }
-        all_states.push_back(_tmp_state);
+        all_states.push_back(_tmp);
     }
 
-    for (auto i : dfa.get_all_end_states())
+    for (const auto &i : dfa.get_all_end_states())
     {
-        int set_index = states_belong[i.first];
-        all_end.insert(make_pair(states_state[reper[set_index]], i.second));
+        all_end.insert(make_pair(states_belong[i.first], i.second));
     }
+}
+
+int DFAO::get_start_id() const
+{
+    return this->start;
 }
 
 const vector<DFAState> &DFAO::get_all_states()
