@@ -72,6 +72,8 @@ string string_utils::change_to_printable_string(const string &s)
         return "\\v";
     else if (s == "\"")
         return "\\\"";
+    else if (s == "\\\\")
+        return "\\\\";
     else
     {
         if (s.length() > 1 && s.at(0) == '\\')

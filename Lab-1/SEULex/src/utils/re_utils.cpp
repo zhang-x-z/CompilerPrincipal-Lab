@@ -15,6 +15,24 @@ void re_utils::pre_process_re(string &re, const unordered_map<string, string> &m
     handle_espace(re);
 }
 
+bool re_utils::is_espace(const string &re, int index)
+{
+    if (index == 0 || re.at(index - 1) != '\\')
+        return false;
+    int cur = index - 2;
+    int count = 1;
+    while (cur >= 0 && re.at(cur) == '\\')
+    {
+        cur--;
+        count++;
+    }
+
+    if (count % 2)
+        return true;
+    else
+        return false;
+}
+
 void re_utils::replace_braces(string &re, const unordered_map<string, string> &map)
 {
     int start = 0;
@@ -25,7 +43,7 @@ void re_utils::replace_braces(string &re, const unordered_map<string, string> &m
     while (index != re.npos)
     {
         res += re.substr(start, index - start);
-        if (index == 0 || re.at(index - 1) != '\\')
+        if (!is_espace(re, index))
         {
             string name = "";
             bool finded = false;
@@ -74,7 +92,7 @@ void re_utils::replace_brackets(string &re)
     while (index != re.npos)
     {
         res += re.substr(start, index - start);
-        if (index == 0 || re.at(index - 1) != '\\')
+        if (!is_espace(re, index))
         {
             int start_pos = index + 1;
             bool is_not = false;
@@ -315,7 +333,7 @@ void re_utils::handle_dot(string &re)
     while (index != re.npos)
     {
         res += re.substr(start, index - start);
-        if (index == 0 || re.at(index - 1) != '\\')
+        if (!is_espace(re, index))
         {
             res += "(";
             charset *_set = get_charset();

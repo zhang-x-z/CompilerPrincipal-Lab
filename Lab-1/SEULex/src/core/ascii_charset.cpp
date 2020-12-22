@@ -5,7 +5,7 @@ void ascii_charset::complementary_set(unordered_set<string> &set)
 {
     unordered_set<string> tmp(set);
     set.clear();
-    for (int i = 0; i < 128; i++)
+    for (int i = 1; i < 128; i++)
     {
         string c = re_utils::espace_basic_symbol(string(1, (char)i));
         if (tmp.find(c) == tmp.end())
@@ -18,7 +18,7 @@ void ascii_charset::complementary_set(unordered_set<string> &set)
 void ascii_charset::universe_set(unordered_set<string> &set)
 {
     set.clear();
-    for (int i = 0; i < 128; i++)
+    for (int i = 1; i < 128; i++)
     {
         string c = re_utils::espace_basic_symbol(string(1, (char)i));
         set.insert(c);

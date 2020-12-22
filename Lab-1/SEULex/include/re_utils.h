@@ -25,6 +25,7 @@ public:
     static void construct_queue(const string &, queue<string> &);
 
 private:
+    static bool is_espace(const string &, int);
     static string_iterator *get_string_iterator();
     static charset *get_charset();
     static string handle_bracket_espace(const string &);
