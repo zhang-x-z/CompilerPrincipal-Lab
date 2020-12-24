@@ -1,4 +1,6 @@
-package core;
+package SoftCodeLexer.core;
+
+import SoftCodeLexer.config.LexerConfiguration;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -6,9 +8,9 @@ import java.io.InputStreamReader;
 
 public class Lexer {
     private final DFA dfa = DFA.getInstance();
-    private final String encoding = Configuration.getInstance().getSourceFileEncoding();
+    private final String encoding = LexerConfiguration.getInstance().getSourceFileEncoding();
     private InputStreamReader reader = null;
-    private final char[] buf = new char[Configuration.getInstance().getBufferSize()];
+    private final char[] buf = new char[LexerConfiguration.getInstance().getBufferSize()];
     private int currentLength;
     private int currentIndex = 0;
     private boolean isEnd = false;
@@ -26,7 +28,8 @@ public class Lexer {
     }
 
     // TODO: Just print the token currently. It should output a token when use with parser.
-    public void next() throws RuntimeException {
+    public Token next() throws RuntimeException {
+        Token token = null;
         if (!isEnd) {
             boolean flag = true;
             while (flag) {
@@ -38,7 +41,7 @@ public class Lexer {
                         closeSourceCodeFile();
                         String word = currentWord.toString();
                         if (dfa.isAcceptingState()) {
-                            System.out.println("<" + Configuration.getInstance().acceptStateToSymbolName(dfa.getCurrentStateName()) + "," + word + ">");
+                            token = new Token(word, LexerConfiguration.getInstance().acceptStateToSymbolName(dfa.getCurrentStateName()));
                             break;
                         } else {
                             throw new RuntimeException("Wrong word: " + word);
@@ -49,7 +52,7 @@ public class Lexer {
                 if (!dfa.next(e)) {
                     String word = currentWord.toString();
                     if (dfa.isAcceptingState()) {
-                        System.out.println("<" + Configuration.getInstance().acceptStateToSymbolName(dfa.getCurrentStateName()) + "," + word + ">");
+                        token = new Token(word, LexerConfiguration.getInstance().acceptStateToSymbolName(dfa.getCurrentStateName()));
                         flag = false;
                         currentWord = new StringBuilder();
                         dfa.returnToStart();
@@ -62,13 +65,14 @@ public class Lexer {
                 }
             }
         } else {
-            System.out.println("Has reached to the end of the source file.");
+            throw new RuntimeException("Has reached the end of the file.");
         }
+        return token;
     }
 
     private void openSourceCodeFile() {
         try {
-            reader = new InputStreamReader(new FileInputStream(Configuration.getInstance().getSourceFileLocation()), encoding);
+            reader = new InputStreamReader(new FileInputStream(LexerConfiguration.getInstance().getSourceFileLocation()), encoding);
         } catch (IOException e) {
             e.printStackTrace();
         }

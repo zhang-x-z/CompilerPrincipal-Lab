@@ -1,7 +1,8 @@
-package core;
+package SoftCodeLexer.core;
+
+import SoftCodeLexer.config.LexerConfiguration;
 
 import java.io.*;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,8 +14,8 @@ public class DFA {
     static {
         BufferedReader reader = null;
         try {
-            String startName = Configuration.getInstance().getStartStateName();
-            reader = new BufferedReader(new InputStreamReader(new FileInputStream(Configuration.getInstance().getDFAFileLocation()), Configuration.getInstance().getDFAFileEncoding()));
+            String startName = LexerConfiguration.getInstance().getStartStateName();
+            reader = new BufferedReader(new InputStreamReader(new FileInputStream(LexerConfiguration.getInstance().getDFAFileLocation()), LexerConfiguration.getInstance().getDFAFileEncoding()));
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] args = line.split(",");

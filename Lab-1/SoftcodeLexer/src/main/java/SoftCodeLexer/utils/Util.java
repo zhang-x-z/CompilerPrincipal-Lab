@@ -1,4 +1,4 @@
-package utils;
+package SoftCodeLexer.utils;
 
 public class Util {
     public static boolean isEdgeCorrect(String e) {

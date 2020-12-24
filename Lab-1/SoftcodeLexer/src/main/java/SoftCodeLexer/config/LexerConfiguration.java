@@ -1,21 +1,22 @@
-package core;
+package SoftCodeLexer.config;
 
 import java.io.IOException;
 import java.util.Properties;
 
-public class Configuration {
-    private static final Configuration configuration;
+public class LexerConfiguration {
+    private static final LexerConfiguration configuration;
     private static String dfaFileLocation;
     private static String sourceFileLocation;
     private static String startStateName;
     private static String sourceFileEncoding;
     private static String dfaFileEncoding;
+    private static String lrTableFileLocation;
     private static int bufferSize = 100;
     private static final Properties properties;
     static {
         properties = new Properties();
         try {
-            properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("lex-config.properties"));
+            properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream("lexer-config.properties"));
             dfaFileLocation = properties.getProperty("dfa.location");
             if (dfaFileLocation == null) {
                 throw new RuntimeException("DFA table file location must be given.");
@@ -43,13 +44,13 @@ public class Configuration {
         } catch (IOException | RuntimeException e) {
             e.printStackTrace();
         }
-        configuration = new Configuration();
+        configuration = new LexerConfiguration();
     }
 
-    private Configuration() {
+    private LexerConfiguration() {
     }
 
-    public static Configuration getInstance() {
+    public static LexerConfiguration getInstance() {
         return configuration;
     }
 

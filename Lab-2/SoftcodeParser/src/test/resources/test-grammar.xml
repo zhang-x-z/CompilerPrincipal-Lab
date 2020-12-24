@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<grammar>
+    <expression id="acc">
+        <leftPart>
+            Sp
+        </leftPart>
+        <rightPart>
+            [S]
+        </rightPart>
+    </expression>
+    <expression id="1">
+        <leftPart>
+            S
+        </leftPart>
+        <rightPart>
+            [C][C]
+        </rightPart>
+    </expression>
+    <expression id="2">
+        <leftPart>
+            C
+        </leftPart>
+        <rightPart>
+            [c][C]
+        </rightPart>
+    </expression>
+    <expression id="3">
+        <leftPart>
+            C
+        </leftPart>
+        <rightPart>
+            [d]
+        </rightPart>
+    </expression>
+</grammar>

@@ -1,6 +1,6 @@
-package core;
+package SoftCodeLexer.core;
 
-import utils.Util;
+import SoftCodeLexer.utils.Util;
 
 import java.util.*;
 

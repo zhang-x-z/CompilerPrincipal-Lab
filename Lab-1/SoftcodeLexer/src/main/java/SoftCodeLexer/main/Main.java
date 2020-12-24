@@ -1,13 +1,13 @@
-package main;
+package SoftCodeLexer.main;
 
-import core.Lexer;
+import SoftCodeLexer.core.Lexer;
 
 public class Main {
     public static void main(String[] args) {
         try {
             Lexer lexer = new Lexer();
             while (lexer.hasNext()) {
-                lexer.next();
+                System.out.println(lexer.next());
             }
         } catch (RuntimeException e) {
             System.err.println(e.getMessage());

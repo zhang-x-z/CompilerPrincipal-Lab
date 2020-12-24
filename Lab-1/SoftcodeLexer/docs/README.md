@@ -1,7 +1,18 @@
+## 打包方法
+- 在该项目下运行
+```shell script
+mvn package
+```
+> 注意：请使用JDK14及以上版本
+## 使用方法
+- 在SoftCodeLexer.jar所在文件夹下运行
+```shell script
+java -cp '.;SoftCodeLexer.jar' SoftCodeLexer.main.Main
+```
 ## 配置说明
-- 本程序必须要有名为lex-config.properties的配置文件，并放置在classpath中
+- 本程序必须要有名为lexer-config.properties的配置文件，并放置在classpath中
 - 输入的dfa以csv文件格式存储，文件格式见后文
-### lex-config.properties可配置项
+### lexer-config.properties可配置项
 - dfa.location: dfa文件的位置（必需）
 - dfa.encoding: dfa文件的编码格式（不配置默认utf8）
 - dfa.startName: 其实状态的名称（必需，需要和dfa文件中的状态名称一样，区分大小写）
