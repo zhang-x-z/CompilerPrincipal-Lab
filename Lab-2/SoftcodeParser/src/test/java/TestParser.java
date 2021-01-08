@@ -1,6 +1,6 @@
-import SoftCodeParser.Main;
-import SoftCodeParser.core.Parser;
-import SoftCodeParser.core.ParserTree;
+import SimpleJavaLexerAndParser.SoftCodeParser.Main;
+import SimpleJavaLexerAndParser.SoftCodeParser.core.Parser;
+import SimpleJavaLexerAndParser.SoftCodeParser.core.ParserTree;
 import org.junit.Test;
 
 public class TestParser {

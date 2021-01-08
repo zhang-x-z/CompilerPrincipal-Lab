@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<grammar>
+    <expression id="acc">
+        <leftPart>
+            S
+        </leftPart>
+        <rightPart>
+            [object]
+        </rightPart>
+    </expression>
+    <expression id="1">
+        <leftPart>
+            object
+        </leftPart>
+        <rightPart>
+            [left-brace][right-brace]
+        </rightPart>
+    </expression>
+    <expression id="2">
+        <leftPart>
+            object
+        </leftPart>
+        <rightPart>
+            [left-brace][objects][right-brace]
+        </rightPart>
+    </expression>
+    <expression id="3">
+        <leftPart>
+            objects
+        </leftPart>
+        <rightPart>
+            [string][colon][value][comma][objects]
+        </rightPart>
+    </expression>
+    <expression id="4">
+        <leftPart>
+            objects
+        </leftPart>
+        <rightPart>
+            [string][colon][value]
+        </rightPart>
+    </expression>
+    <expression id="5">
+        <leftPart>
+            value
+        </leftPart>
+        <rightPart>
+            [string]
+        </rightPart>
+    </expression>
+    <expression id="6">
+        <leftPart>
+            value
+        </leftPart>
+        <rightPart>
+            [number]
+        </rightPart>
+    </expression>
+    <expression id="7">
+        <leftPart>
+            value
+        </leftPart>
+        <rightPart>
+            [object]
+        </rightPart>
+    </expression>
+    <expression id="8">
+        <leftPart>
+            value
+        </leftPart>
+        <rightPart>
+            [array]
+        </rightPart>
+    </expression>
+    <expression id="9">
+        <leftPart>
+            value
+        </leftPart>
+        <rightPart>
+            [true]
+        </rightPart>
+    </expression>
+    <expression id="10">
+        <leftPart>
+            value
+        </leftPart>
+        <rightPart>
+            [false]
+        </rightPart>
+    </expression>
+    <expression id="11">
+        <leftPart>
+            value
+        </leftPart>
+        <rightPart>
+            [null]
+        </rightPart>
+    </expression>
+    <expression id="12">
+        <leftPart>
+            array
+        </leftPart>
+        <rightPart>
+            [left-bracket][right-bracket]
+        </rightPart>
+    </expression>
+    <expression id="13">
+        <leftPart>
+            array
+        </leftPart>
+        <rightPart>
+            [left-bracket][values][right-bracket]
+        </rightPart>
+    </expression>
+    <expression id="14">
+        <leftPart>
+            values
+        </leftPart>
+        <rightPart>
+            [value][comma][values]
+        </rightPart>
+    </expression>
+    <expression id="15">
+        <leftPart>
+            values
+        </leftPart>
+        <rightPart>
+            [value]
+        </rightPart>
+    </expression>
+</grammar>

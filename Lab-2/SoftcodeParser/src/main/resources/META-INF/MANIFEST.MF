@@ -1,3 +1,4 @@
 Manifest-Version: 1.0
-Main-Class: SoftCodeParser.Main
+Main-Class: 
+Class-Path: xml-apis-1.0.b2.jar dom4j-1.6.1.jar
 
