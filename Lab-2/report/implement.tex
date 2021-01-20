@@ -1,0 +1,40 @@
+\section{实验实现方法}
+在本次实验中，由于DFA和LR Table最终都可以用一张表来表示，所以采用csv文件来存储用户输入的LR Table和DFA，以实现软编码的目的。然后根据读入的表进行解析，首先用Lexer读入用户输入的源文件，一次读入一个字符，并在DFA上进行状态之间的转换，并适当的进行报错处理。Lexer提供了next函数，每次返回一个Token类，用来表示识别到的词，然后交由Parser处理，Parser根据传入的Token和LR Table进行状态的移动，最终形成一棵Parser Tree
+\subsection{SoftCodeLexer关键内容描述}
+\subsubsection{State}
+该类主要内容为String name，boolean isAcceptState以及HashMap<String, String> mapping2statename;它们分别记录了当前状态的名称，是否为结束节点，以及该状态能经过什么符号到达下一个状态的名称；
+
+
+并且提供了方法getNextStateName，它能根据传入的字符寻找能到达的状态的名称并返回，如果没有则返回null
+\subsubsection{DFA}
+该类主要保存用户输入的DFA，其中关键的数据成员为：HashMap<String, State> name2state，该map用于记录所有的State并将它们的名称和状态做映射；State start用于记录开始状态；State currentState用于DFA在状态之间转换时记录当前所在的状态；
+
+
+该类提供了next函数，它接受一个字符，并判断能否从当前状态经过这个字符到达另一个状态，如果不可以则返回false，可以的话返回true；同时提供了函数isAcceptingState，用来判断当前状态是否是accept的，还提供了returnToStart函数，用于将DFA的当前状态重置到开始状态。
+
+
+对DFA做这样的封装，可以让外部使用者只调用next，判断是否是accepting的即可，对于DFA内部的状态是如何转换的可以不关心。
+
+\subsubsection{Token}
+该类用于表示词法分析器生成的Token，主要含有Long id, String type, String lexValue，分别表示该Token的id，类型和对应的解析出来的真实值。其中type为用户在配置文件中自己定义的名称。
+\subsubsection{Lexer}
+该类为实现词法分析的类，它使用封装好的DFA，并维护了一个char[] buf，buffer的大小可由用户配置，其工作流程为每次读入buffer大小的字符，对字符进行遍历，遍历一个字符将其交给DFA，如果DFA返回false，说明不能继续走，然后判断DFA当前状态能否接受，如果能则输出，不能则报错。
+
+\subsection{SoftCodeParser关键内容描述}
+\subsubsection{Expression}
+该类主要用于存储用户输入的语法产生式，由于我们要求的产生式为上下文无关文法，所以该类用一个String leftPart存储产生式的左部，而右部用ArrayList<String> rightPart来按照顺序存储
+\subsubsection{Grammar}
+该类用于存储所有的产生式，它使用一个HashMap<String, Expression> allExpression将用户定义的产生式名称和产生式相关联并存储，并提供了按照名称返回产生式的方法。
+\subsubsection{LRTableRow}
+该类用于存储LR Table中的一行，类似于DFA中的状态，它主要含有两个数据成员：HashMap<String, Pair<String, Integer>> actions，用来存储action表，它将表示该状态能从哪种Token转移到下一个状态或用什么来规约，Pair<String, Integer>种用Integer表示是移进还是规约还是到达了accept状态，如果是移进，则Pair中第一个String表示要移进的状态名，如果是规约或者accept则表示产生式的名称；HashMap<String, String> goto表示goto表，表示能从哪个非终结状态到达哪个状态；String name代表当前行的状态名称。
+\subsubsection{LRTable}
+该类用来存储完整的LRTable，利用HashMap<String, LRTableRow> rows存储所有行，并将每行的状态的名称和该行做映射，并提供了canReach和canGoto函数用来判断通过给定的终结符或非终结符的下一步状态，如规约，移进或accept。
+\subsubsection{ParserTreeNode}
+该类是生成的语法分析树的节点，保存了int id，boolean isLeaf表示是否为叶节点，String symbol表示对应Token的type，String value表示如果是叶节点则它的lexValue是多少，以及List<ParserTreeNode>表示它的儿子节点
+\subsubsection{ParserTree}
+该类保存了ParserTree的根节点
+\subsubsection{Parser}
+该类为语法分析器的核心，它使用了Lexer和LRTable，parser函数为解析函数，它每次读入Lexer的一个字符，同时维护符号栈和状态栈，根据Token的type查LRTable决定下一步动作：如果是移入则创建新的ParserTreeNode，将Token中的lexValue放入，并令其为叶节点，压入符号栈;如果规约则相应的将符号栈中的符号弹出与Grammar中的Expression比较能否成功规约，并创建新的ParserTreeNode，其不是叶节点，并且儿子节点为符号栈中弹出的可规约的ParserTreeNode，规约完成后将这个节点压入符号栈，并根据goto表查找正确的状态名称压入状态栈。
+
+
+这样在规约结束时即可获得一棵语法分析树。

@@ -1,0 +1,10 @@
+{
+    "name": "ZXZ",
+    "age": 21,
+    "GPA": 3.92,
+    "is_male": true,
+    "is_famale": false,
+    "courses": [
+        "Database", "CompilePrincipal", null
+    ]
+}

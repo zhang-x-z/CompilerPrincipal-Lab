@@ -1,0 +1,6 @@
+## SimpleJavaLexerAndParser说明
+
+- SimpleJavaLexerAndParser下为源码，具体说明见docs文件夹下的README
+- SimpleJavaLexerAndParserProduct下为打包好的jar文件，使用说明也见SimpleJavaLexerAndParserProduct/docs下的README
+- report文件夹下为实验报告
+
