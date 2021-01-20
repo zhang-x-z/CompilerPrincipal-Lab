@@ -1,9 +1,37 @@
 ## SEU Lex
 - Linux环境下开发，编译器选择clang++
+### 编译使用方法
+
+进入到含有源代码文件的文件夹下
+
+```sh
+cmake ./
+make
+```
+
+编译过后会在当前目录下的/bin目录中找到SEULex和test文件夹下的Test可执行文件，前者是编译出的结果，后者是开发过程中测试用的可执行文件，请使用前者
+
+在遵循下文中的配置说明正确配置后，运行
+
+```sh
+./SEULex
+```
+
+即可在当前目录下找到lex.cpp文件，即为生成文件，编译此文件，这里以clang++为例，g++同理
+
+```sh
+clang++ ./lex.cpp -o lex
+```
+
+会生成lex可执行文件，假定要解析的源代码文件为test.xxx（文件名及后缀由用户确定），命令为
+
+```shell
+./lex < test.xxx
+```
+
 ### 使用说明
 1. 必须在与可执行程序同目录下有config.properties配置文件
 2. 使用xml文件表示用户的输入
-3. 可下载源码利用cmake和clang++(或者g++)进行编译，在/bin下生成的SEULex为可执行程序
 ### config.properties可配置项
 1. buffer_size: 生成的可执行程序一次性读入源代码文件的*字节数*（最低为50，可不配置，不配置为50）
 2. source_file_location: xml文件位置（必须）

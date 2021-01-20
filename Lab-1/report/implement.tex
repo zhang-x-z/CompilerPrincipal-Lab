@@ -1,0 +1,299 @@
+\section{实验实现方法}
+在本次实验中，首先对于用户定义正规表达式的输入采用了xml文件的方式，并借助第三方xml解析库来解析xml文件，同时对输入正规表达式的规则做出了限制，具体规则见下文。对于正规表达式转换为NFA的算法，采用首先将正规表达式中的特殊符号去除，再将其转换为后缀形式，再利用Thompson算法将正规表达式转换为NFA。利用epsilon闭包和子集构造法进行NFA的确定化，再利用等价类划分的方法进行DFA的最小化，最后根据生成的DFA生成最最终程序代码的生成。同时采用了配置文件的方法，可供用户自定义配置选项，提高了软件的通用性。
+\subsection{关键数据结构描述}
+\subsubsection{config.h}
+该类用于读取用户的配置文件，配置文件采用.properties格式，该类采用单例模式，读取后供后续程序使用。
+\lstset{language=C++}
+\begin{lstlisting}
+#pragma once
+#include <string>
+using namespace std;
+
+#define UTF8 1
+#define ASCII 1
+#define UNICODE 2
+
+class Config
+{
+public:
+    static Config *get_instance();
+    int get_buffer_size();
+    static void delete_instance();
+    const string &get_source_file_loaction();
+    int get_encoding();
+    int get_charset();
+
+private:
+    Config();
+    int buffer_size;
+    int encoding;
+    int charset;
+    static Config *config;
+    string source_file_location;
+};
+\end{lstlisting}
+\subsubsection{rule.h}
+rule类用于存储用户定义的正规表达式以及每个正规表达式对应的要执行的动作
+\lstset{language=C++}
+\begin{lstlisting}
+#pragma once
+
+#include <string>
+#include <vector>
+using namespace std;
+
+class rule
+{
+public:
+    rule(const rule &);
+    rule(const string &, const vector<string> &);
+    const string &get_pattern();
+    const vector<string> &get_actions();
+
+private:
+    string pattern = "";
+    vector<string> actions;
+};
+\end{lstlisting}
+\subsubsection{NFAState.h}
+NFAState用于存储NFA中的状态，states\_map主要作用是存储这个状态能通过哪些符号到达哪些状态。其次，states\_map的key使用string而不是char的原因是我们希望可以更加通用，因为对于不是英文的字符，一个字符的长度可能不是一个char，而是两个或者更多字节，不使用w\_string或w\_char的原因是这个数据类型的大小在不同的操作系统中大小不一样，而且是一个定长的，如果大部分都是使用一个字节的char而使用w\_char就会有些浪费空间，所以使用可变的string类型，后面会有专门的方法来解析长度变动的字符，如UTF8编码的文件。
+\lstset{language=C++}
+\begin{lstlisting}
+#pragma once
+#include <unordered_map>
+#include <unordered_set>
+using namespace std;
+
+class NFAState
+{
+public:
+    NFAState(int);
+    NFAState(const NFAState &);
+    void set_states_map(const string &, int);
+    const unordered_multimap<string, int> &get_states_map() const;
+    void find_epsilon_edge(unordered_set<int> &) const;
+    void find_state_by_edge(const string &, unordered_set<int> &) const;
+    int get_id() const;
+
+private:
+    int id;
+    unordered_multimap<string, int> states_map;
+};
+\end{lstlisting}
+
+\subsubsection{NFA.h}
+该类用于存储NFA图，states保存了所有生成的NFAState，end\_state用来存储哪些状态是终态，以及它们对应的由用户定义的rule，由于我们希望谓词优先，所以采用了有序的map，以备NFA转换为DFA时可以查找哪个rule更靠前。
+\lstset{language=C++}
+\begin{lstlisting}
+#pragma once
+#include <unordered_map>
+#include <map>
+#include "source_file.h"
+#include "NFAState.h"
+#include "rule.h"
+using namespace std;
+
+class NFA
+{
+public:
+    NFA();
+    int get_start_state_id() const;
+    int is_contains_end(const unordered_set<int> &) const;
+    void can_reach(const unordered_set<int> &, unordered_map<string, unordered_set<int>> &);
+    void find_epsilon_closure(const unordered_set<int> &, unordered_set<int> &);
+    const rule &get_rule_by_id(int) const;
+    const NFAState &find_state_by_id(int) const;
+    const unordered_map<int, NFAState> &get_all_states() const;
+
+private:
+    void construct_NFA();
+    source_file *source;
+    map<int, rule> end_state;
+    int start_state_id;
+    unordered_map<int, NFAState> states;
+};
+\end{lstlisting}
+\subsubsection{DFAState.h}
+该类和NFAState类似，用于表示DFA的状态，由于一个DFA状态中可能含有多个NFA状态，所以NFAStates用于存储该DFAStates中包含了哪些NFAState，edges用于保存该状态可以从哪些符号到哪些状态，key采用string的原因和NFAState中的原因相同。
+\lstset{language=C++}
+\begin{lstlisting}
+#pragma once
+#include <unordered_set>
+#include <unordered_map>
+using namespace std;
+
+class DFAState
+{
+public:
+    DFAState(int);
+    DFAState(const DFAState &);
+    void set_edges(const string &, int);
+    void set_NFAStates(int);
+    void set_NFAStates(const unordered_set<int> &);
+    int get_id() const;
+    unordered_set<int> &get_NFA_states();
+    const unordered_map<string, int> &get_all_edges() const;
+    int find_DFAState_by_edge(const string &);
+
+private:
+    int id;
+    unordered_set<int> NFAStates;
+    unordered_map<string, int> edges;
+};
+
+\end{lstlisting}
+\subsubsection{DFA.h}
+该类用于存储DFA，其中states用来存储生成的DFAState，由于DFA的状态是按顺序生成的，所以直接利用vector存储即可，可以提高访问效率，同时end\_states保存结束状态和它们对应的用户对应的rule，由于这里不用确认rule的先后顺序，所以采用unordered\_map
+\lstset{language=C++}
+\begin{lstlisting}
+#pragma once
+#include <vector>
+#include <unordered_map>
+#include "DFAState.h"
+#include "rule.h"
+#include "NFA.h"
+using namespace std;
+
+class DFA
+{
+public:
+    DFA();
+    const vector<DFAState> &get_all_states() const;
+    const unordered_map<int, rule> &get_all_end_states() const;
+    int get_start_id() const;
+
+private:
+    void construct_DFA();
+    int is_same_core(const unordered_multimap<int, unordered_set<int>> &, const unordered_set<int> &);
+    int is_same_state(const unordered_set<int> &);
+    int start;
+    unordered_map<int, rule> end_states;
+    vector<DFAState> states;
+};
+\end{lstlisting}
+\subsubsection{string\_iterator.h}
+该类是一个接口类，用于用户配置的不同编码方式提供不同的实现类，来实现对不同编码的字符串进行遍历，可以实现对变长编码的字符串的遍历，如UTF8编码。目前只提供了UTF8编码的遍历实现类，实现方法为每次读取一个字节，对其按位与判断这个字符的字节数，然后读取相应数量的字节，实现对一个变长字符的读取。
+\lstset{language=C++}
+\begin{lstlisting}
+#pragma once
+#include <string>
+using namespace std;
+
+class string_iterator
+{
+public:
+    virtual const string next() = 0;
+    virtual bool has_next() = 0;
+    virtual void set_string(const string &) = 0;
+    virtual void set_current_pos(int) = 0;
+    virtual int get_current_pos() = 0;
+    virtual ~string_iterator(){};
+};
+\end{lstlisting}
+\subsubsection{charset.h}
+该类也是一个接口类，可以针对不同字符集构造全集和补集，用于处理中括号中的\^运算和.运算，可以根据用户配置的不同字符集提供不同实现类，目前只提供了ASCII字符集的实现类。
+\lstset{language=C++}
+\begin{lstlisting}
+#pragma once
+#include <unordered_set>
+#include <string>
+using namespace std;
+
+class charset
+{
+public:
+    virtual void complementary_set(unordered_set<string> &) = 0;
+    virtual void universe_set(unordered_set<string> &) = 0;
+    virtual ~charset(){}
+};
+\end{lstlisting}
+\subsection{关键算法描述}
+\subsubsection{正规表达式的规范化}
+\quad 正规表达式的规范化即去除用户输入的表达式中的?,[],\{\},+等的运算符变为*，（）等规范的运算符。为了实现这一目的，需要对用户输入的正规表达式做出一些限制，以便更好的规范化，对正规表达式的要求如下：\\
+\begin{itemize}
+    \item[1]不支持\^{} 和 \$（即行首和行尾）
+    \item[2]关于转义
+    \begin{itemize}
+        \item[2.1]取消了""转义（个人认为存在两个转义方式会存在歧义）
+        \item[2.2]$\textbackslash$转义符号:
+        \begin{itemize}
+            \item[2.2.1]t, n, f, v, r转义为特殊字符
+            \item[2.2.2](, ), [, \{, +, ?, *, ., |, \\ 转义为普通字符
+            \item[2.2.3]], \}仅在[, \{后才需要转义，如$\textbackslash$\{ddd\}， \}adb\}]则处理成普通字符
+        \end{itemize}
+    \end{itemize}
+    \item[3][]处理:
+    \begin{itemize}
+        \item[3.1]$\textbackslash$t,$\textbackslash$n,$\textbackslash$r,$\textbackslash$v,$\textbackslash$f,],\{会被转义(对于[]中的\{\}认为是字符，而不是引用其他表达式，所以请将\{也进行转义，否则会将此\{后的字符认为是引用其他正规表达式)
+        \item[3.2]\^{}处于行首且未被$\textbackslash$转义则为非,其他情况则认为是普通字符
+        \item[3.3]-两侧都有字符则认为是特殊字符，只有数字，字母且按照顺序才合法，-只有一侧有字符则认为是普通字符
+        \item[3.4][]中的$\textbackslash$都会被处理，比如$\textbackslash$9，这个字符并不需要转义，则保留9去除$\textbackslash$
+        \item[3.5]其余认为是普通字符
+    \end{itemize}
+    \item[4]\{\}处理
+    \begin{itemize}
+        \item[4.1] \{\}用于分层定义，引用其他定义好的正规表达式,\{\}中为其他正规表达式名字
+        \item[4.2]\{\}中除了$\textbackslash$\}会被转义，其余均按普通字符处理。e.g. \{$\textbackslash$$\textbackslash$b$\textbackslash$t$\textbackslash$\}\} 则对应引用名称为$\textbackslash$$\textbackslash$b$\textbackslash$t\}的正规表达式
+    \end{itemize}
+    \item[5]?, +处理
+    \begin{itemize}
+        \item[5.1](?, |?, (+, |+均不合法
+        \item[5.2]如a+?, a?+, a*?等均不合法, 请输入括号: e.g. (a+)?
+    \end{itemize}
+    \item[6]加.运算符
+    \begin{itemize}
+        \item[6.1](后, )前不加点 ('(.', '.)')
+        \item[6.2]|前后不加点
+        \item[6.3]加点情况：char . (; char . char; ).(; ).char; *.(; *.char;
+    \end{itemize}
+\end{itemize}
+处理正规表达式的一般过程为首先去除大括号，将大括号中引用的表达式替换，再去除中括号，对于其中的-,.,\^{}进行处理，全部替换为|运算符;然后去除+和？，将其替换为等价的用*和epsilon表示的表达式;最后对于转义全部替换为转义过后的字符,再对表达式进行加·处理
+\subsubsection{正规表达式转NFA}
+首先需要对正规表达式做中缀转后缀的操作：使用操作符栈和后缀表达式队列扫描中缀形式的正规表达式；若遇到字符就直接压到队列中（队列中保存的是当前情况下后缀形式的正规表达式）；若遇到的是“（”、“）”、“.”、“|”、“*”这些操作符，则根据当前栈顶元素的优先级和读入操作符的优先级作比较，如果栈顶优先级高则弹栈，否则把自身压入栈中。如果栈空也直接压入栈中。若定义了转义字符，则当读入字符是转义字符时，要判断后面的字符是否需要转义，如果是要转义的，那就不是操作符，作为字符处理
+
+
+其次利用Thompson算法将后缀形式的正规表达式自下而上组合构建NFA，使用栈来记录生成的小NFA的开始状态和结束状态，遇到操作符后根据相应规则弹出栈顶的小NFA进行转换合并，生成新的NFA并将新的NFA的开始状态和结束状态压入栈中，最后即可获得一个完整的NFA。
+\subsubsection{NFA确定化}
+\begin{itemize}
+    \item NFA确定化
+    \item 确定化过程
+    \begin{itemize}
+        \item 对NFA的开始状态进行epsilon闭包，生成新的DFA初态，加入队列
+        \item 当队列不为空时
+        \begin{itemize}
+            \item 取出队列头的未处理DFA状态s
+            \item 对于字符（边）全集中每个字符c进行子集构造
+            \begin{itemize}
+                \item 如果有对应的发出边
+                \item 对生成的集合进行epsilon闭包
+                \item 判断生成的集合是否与已经存在的DFA状态相同
+                \item 如果存在，记录相同的状态s’
+                \item 如果不存在，则新建状态s’，判断s’是否为终态，如果为终态则决定终态对应的动作
+                \item 连边s->s’
+            \end{itemize}
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+\subsubsection{DFA最小化}
+\begin{itemize}
+    \item DFA最小化
+    \item 使用弱等价，回头看采用一步一回头
+    \item 遍历原DFA，将每个终态单独存入一个集合中，其余非终态放入一个集合
+    \item 直至没有新建集合为止，遍历所有集合：
+    \begin{itemize}
+        \item 从集合k中任意取一个状态s，遍历其余状态s’
+        \begin{itemize}
+            \item 取出队列头的未处理DFA状态s
+            \item 对于字符（边）全集中每个字符c进行子集构造
+            \begin{itemize}
+                \item 遍历s所有发出边e
+                \item 如果s’中也有e且与s到同一个集合，跳至下一个
+                \item 否则新建集合k’，将s’并入k’中
+            \end{itemize}
+            \item 如果新建集合了，就终止循环
+            \item 将k’中元素从k中删除
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+\subsubsection{代码生成}
+对于最后生成的最小化DFA表，利用map的数据结构将其存储，根据最终的DFA在生成的文件中写map的插入语句，将DFA插入到生成代码中的DFA中，再利用用户配置的要处理文件的编码格式，写入读取相应编码的代码，最后再加入用户自定义的代码，由yylex()函数进行驱动进行解析。

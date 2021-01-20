@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Lex>
+    <userDefinitions></userDefinitions>
+    <reDefinitions>
+        <digit>
+            [0-9]
+        </digit>
+    </reDefinitions>
+    <rules>
+        <rule>
+            <re>
+                "(\\.|[^\\"\n])*"
+            </re>
+            <action>
+                cout &lt;&lt; "STRING" &lt;&lt; endl;
+            </action>
+        </rule>
+        <rule>
+            <re>
+                \{
+            </re>
+            <action>
+                cout &lt;&lt; "LEFT BRACE" &lt;&lt; endl;
+            </action>
+        </rule>
+        <rule>
+            <re>
+                }
+            </re>
+            <action>
+                cout &lt;&lt; "RIGHT BRACE" &lt;&lt; endl;
+            </action>
+        </rule>
+        <rule>
+            <re>
+                ,
+            </re>
+            <action>
+                cout &lt;&lt; "COMMA" &lt;&lt; endl;
+            </action>
+        </rule>
+        <rule>
+            <re>
+                :
+            </re>
+            <action>
+                cout &lt;&lt; "COLON" &lt;&lt; endl;
+            </action>
+        </rule>
+        <rule>
+            <re>
+                \[
+            </re>
+            <action>
+                cout &lt;&lt; "LEFT BRACKET" &lt;&lt; endl;
+            </action>
+        </rule>
+        <rule>
+            <re>
+                ]
+            </re>
+            <action>
+                cout &lt;&lt; "RIGHT BRACKET" &lt;&lt; endl;
+            </action>
+        </rule>
+        <rule>
+            <re>
+                [\r\t \n]
+            </re>
+            <action>
+                cout &lt;&lt; "WIGHTSPACE" &lt;&lt; endl;
+            </action>
+        </rule>
+        <rule>
+            <re>
+                [1-9]{digit}*|0
+            </re>
+            <action>
+                cout &lt;&lt; "INT" &lt;&lt; endl;
+            </action>
+        </rule>
+        <rule>
+            <re>
+                ([1-9]{digit}*\.{digit}*)|(0\.{digit}*)
+            </re>
+            <action>
+                cout &lt;&lt; "FLOAT" &lt;&lt; endl;
+            </action>
+        </rule>
+        <rule>
+            <re>
+                true
+            </re>
+            <action>
+                cout &lt;&lt; "TRUE" &lt;&lt; endl;
+            </action>
+        </rule>
+        <rule>
+            <re>
+                false
+            </re>
+            <action>
+                cout &lt;&lt; "FALSE" &lt;&lt; endl;
+            </action>
+        </rule>
+        <rule>
+            <re>
+                null
+            </re>
+            <action>
+                cout &lt;&lt; "NULL" &lt;&lt; endl;
+            </action>
+        </rule>
+    </rules>
+    <userCode></userCode>
+</Lex>

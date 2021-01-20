@@ -11,7 +11,7 @@ set(CMAKE_CXX_FLAGS_RELEASE_INIT "-std=c++11 -g -O2")
 
 # default build type : Debug
 if (NOT CMAKE_BUILD_TYPE)
-    set(CMAKE_BUILD_TYPE Debug)
+    set(CMAKE_BUILD_TYPE Release)
 endif()
 
 # respective macro definitions
